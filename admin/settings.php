@@ -1,6 +1,6 @@
 <?php
-require('inc/essentials.php');
-adminLogin();
+    require('inc/essentials.php');
+    adminLogin();
 ?>
 
 
@@ -43,7 +43,7 @@ adminLogin();
                     </div>
                 </div>
 
-                <!-- Genral Edit Modal -->
+                <!-- Genral settings Modal -->
                 <div class="modal fade" id="general-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <form id="general_s_form">
@@ -223,6 +223,50 @@ adminLogin();
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" onclick="contacts_inp(contacts_data)" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary text-white shadow-none">Save</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- Members section-->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h5 class="card-title m-0">Management Team</h5>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#team-s">
+                                <i class="bi bi-plus-square"></i> Add
+                            </button>
+                        </div>
+                        <div class="row" id="team-data">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Management Team Modal -->
+                <div class="modal fade" id="team-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form id="team_s_form">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Team Member</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Name</label>
+                                        <input type="text" name="member_name" id="member_name_inp" class="form-control shadow-none" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">Picture</label>
+                                        <input type="file" name="member_picture" id="member_picture_inp" accept=".jpg, .png, .webp, .jpeg" class="form-control shadow-none" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" onclick="site_title.value = general_data.site_title, site_about.value = general_data.site_about" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary text-white shadow-none">Save</button>
                                 </div>
                             </div>

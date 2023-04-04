@@ -11,8 +11,16 @@
     <!-- Links -->
     <?php require('inc/links.php');
     ?>
+    <?php require('inc/header.php'); ?>
+
 
     <style>
+        body{
+            overflow-x: hidden;
+        }
+        .rooms{
+            padding-top: 10rem;
+        }
         .availability-form {
             margin-top: -50px;
             z-index: 2;
@@ -36,239 +44,266 @@
 
 <body class="bg-light">
 
-    <!-- <?php require('inc/header.php'); ?> -->
-
-    <!-- Availability Form -->
-    <div class="container availability-form">
-        <div class="row">
-            <div class="col-lg-12 bg-white shadow p-4 rounded">
-                <h5 class="md-4">Check Booking Availability</h5>
-                <form>
-                    <div class="row align-items-end">
-                        <div class="col-lg-3 mb-3">
-                            <label class="form-label" style="font-weight:500;">Check-In</label>
-                            <input type="date" class="form-control shadow-none">
-                        </div>
-                        <div class="col-lg-3 mb-3">
-                            <label class="form-label" style="font-weight:500;">Check-Out</label>
-                            <input type="date" class="form-control shadow-none">
-                        </div>
-                        <div class="col-lg-3 mb-3">
-                            <label class="form-label" style="font-weight:500;">Adult</label>
-                            <select class="form-select shadow-none">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="2">3</option>
-                                <option value="1">4</option>
-                                <option value="1">5</option>
-                                <option value="1">6</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-3 mb-3">
-                            <label class="form-label" style="font-weight:500;">Children</label>
-                            <select class="form-select shadow-none">
-                                <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="1">4</option>
-                                <option value="1">5</option>
-                                <option value="1">6</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-1 mb-lg-3 mt-2">
-                            <button type="submit" class="btn text-white shadow-none btn btn-primary">Check</button>
-                        </div>
+    <div class="position-relative">
+        <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="./images/carousel/IMG_15372.png" class="d-block w-100" alt="...">
                     </div>
-                </form>
+                    <div class="carousel-item">
+                        <img src="./images/carousel/IMG_93127.png" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./images/carousel/IMG_15372.png" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+        </div>
+
+        <!-- Availability Form -->
+        <div class="container availability-form pt-5">
+        
+            <div class="row " >
+                <div class="col-lg-12 bg-white shadow p-4 rounded" style="position:absolute;top:1rem">
+                    <h5 class="md-4">Check Booking Availability</h5>
+                    <form>
+                        <div class="row align-items-end">
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label" style="font-weight:500;">Check-In</label>
+                                <input type="date" class="form-control shadow-none">
+                            </div>
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label" style="font-weight:500;">Check-Out</label>
+                                <input type="date" class="form-control shadow-none">
+                            </div>
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label" style="font-weight:500;">Adult</label>
+                                <select class="form-select shadow-none">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="2">3</option>
+                                    <option value="1">4</option>
+                                    <option value="1">5</option>
+                                    <option value="1">6</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label" style="font-weight:500;">Children</label>
+                                <select class="form-select shadow-none">
+                                    <option value="1">1</option>
+                                    <option value="1">2</option>
+                                    <option value="1">3</option>
+                                    <option value="1">4</option>
+                                    <option value="1">5</option>
+                                    <option value="1">6</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-1 mb-lg-3 mt-2">
+                                <button type="submit" class="btn text-white shadow-none btn btn-primary">Check</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
 
     <!-- Rooms -->
-    <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Our Rooms</h2>
-    <div class="container">
-        <div class="row">
+    <div class="rooms">
+        <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Our Rooms</h2>
+        <div class="container">
+            <div class="row">
 
 
-            <div class="col-lg-4 col-md-6 my-3">
-                <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
-                    <img src="images/carousel/IMG_93127.png" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Simple</h5>
-                        <h6 class="mb-1">$100</h6>
+                <div class="col-lg-4 col-md-6 my-3">
+                    <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
+                        <img src="images/carousel/IMG_93127.png" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Simple</h5>
+                            <h6 class="mb-1">$100</h6>
 
-                        <div class="features mb-4">
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                2 Rooms
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                2 Bathrooms
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                Baclcony
-                            </span>
-                        </div>
-                        <!-- Services -->
-                        <div class="facilities mb-4">
-                            <h6 class="mb-1">Amenities</h6>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
+                            <div class="features mb-4">
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    2 Rooms
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    2 Bathrooms
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    Baclcony
+                                </span>
+                            </div>
+                            <!-- Services -->
+                            <div class="facilities mb-4">
+                                <h6 class="mb-1">Amenities</h6>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
 
-                        </div>
+                            </div>
 
-                        <!-- Rating -->
-                        <div class="rating mb-4">
-                            <h6 class="mb-1">Rating</h6>
-                            <span class="badge rounded-pill bg-white">
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
+                            <!-- Rating -->
+                            <div class="rating mb-4">
+                                <h6 class="mb-1">Rating</h6>
+                                <span class="badge rounded-pill bg-white">
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                </span>
+                            </div>
 
-                        <!-- side buttons -->
-                        <div class="d-flex justify-content-evenly mb-2">
-                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none btn btn-primary">Book Now</a>
-                            <a href="#" class="btn btn-sm btn-outline-primary custom-bg shadow-none">More Details</a>
+                            <!-- side buttons -->
+                            <div class="d-flex justify-content-evenly mb-2">
+                                <a href="#" class="btn btn-sm text-white custom-bg shadow-none btn btn-primary">Book Now</a>
+                                <a href="#" class="btn btn-sm btn-outline-primary custom-bg shadow-none">More Details</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 my-3">
-                <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
-                    <img src="images/carousel/IMG_93127.png" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Simple</h5>
-                        <h6 class="mb-1">$100</h6>
+                <div class="col-lg-4 col-md-6 my-3">
+                    <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
+                        <img src="images/carousel/IMG_93127.png" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Simple</h5>
+                            <h6 class="mb-1">$100</h6>
 
-                        <div class="features mb-4">
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                2 Rooms
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                2 Bathrooms
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                Baclcony
-                            </span>
+                            <div class="features mb-4">
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    2 Rooms
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    2 Bathrooms
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    Baclcony
+                                </span>
+                            </div>
+                            <!-- Services -->
+                            <div class="facilities mb-4">
+                                <h6 class="mb-1">Amenities</h6>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+
+                            </div>
+
+                            <!-- Rating -->
+                            <div class="rating mb-4">
+                                <h6 class="mb-1">Rating</h6>
+                                <span class="badge rounded-pill bg-white">
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                </span>
+                            </div>
+
+                            <!-- side buttons -->
+                            <div class="d-flex justify-content-evenly mb-2">
+                                <a href="#" class="btn btn-sm text-white custom-bg shadow-none btn btn-primary">Book Now</a>
+                                <a href="#" class="btn btn-sm btn-outline-primary custom-bg shadow-none">More Details</a>
+                            </div>
+
+
+
+
+
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
-                        <!-- Services -->
-                        <div class="facilities mb-4">
-                            <h6 class="mb-1">Amenities</h6>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-
-                        </div>
-
-                        <!-- Rating -->
-                        <div class="rating mb-4">
-                            <h6 class="mb-1">Rating</h6>
-                            <span class="badge rounded-pill bg-white">
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
-
-                        <!-- side buttons -->
-                        <div class="d-flex justify-content-evenly mb-2">
-                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none btn btn-primary">Book Now</a>
-                            <a href="#" class="btn btn-sm btn-outline-primary custom-bg shadow-none">More Details</a>
-                        </div>
-
-
-
-
-
-                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     </div>
                 </div>
-            </div>
 
 
-            <div class="col-lg-4 col-md-6 my-3">
-                <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
-                    <img src="images/carousel/IMG_93127.png" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Simple</h5>
-                        <h6 class="mb-1">$100</h6>
+                <div class="col-lg-4 col-md-6 my-3">
+                    <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
+                        <img src="images/carousel/IMG_93127.png" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Simple</h5>
+                            <h6 class="mb-1">$100</h6>
 
-                        <div class="features mb-4">
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                2 Rooms
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                2 Bathrooms
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
-                                Baclcony
-                            </span>
+                            <div class="features mb-4">
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    2 Rooms
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    2 Bathrooms
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap lh-base">
+                                    Baclcony
+                                </span>
+                            </div>
+                            <!-- Services -->
+                            <div class="facilities mb-4">
+                                <h6 class="mb-1">Amenities</h6>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+                                <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                    Wifi
+                                </span>
+
+                            </div>
+
+                            <!-- Rating -->
+                            <div class="rating mb-4">
+                                <h6 class="mb-1">Rating</h6>
+                                <span class="badge rounded-pill bg-white">
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                </span>
+                            </div>
+
+                            <!-- side buttons -->
+                            <div class="d-flex justify-content-evenly mb-2">
+                                <a href="#" class="btn btn-sm text-white custom-bg shadow-none btn btn-primary">Book Now</a>
+                                <a href="#" class="btn btn-sm btn-outline-primary custom-bg shadow-none">More Details</a>
+                            </div>
+
+
+
+
+
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
-                        <!-- Services -->
-                        <div class="facilities mb-4">
-                            <h6 class="mb-1">Amenities</h6>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-                            <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                Wifi
-                            </span>
-
-                        </div>
-
-                        <!-- Rating -->
-                        <div class="rating mb-4">
-                            <h6 class="mb-1">Rating</h6>
-                            <span class="badge rounded-pill bg-white">
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <i class="bi bi-star-fill text-warning"></i>
-                            </span>
-                        </div>
-
-                        <!-- side buttons -->
-                        <div class="d-flex justify-content-evenly mb-2">
-                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none btn btn-primary">Book Now</a>
-                            <a href="#" class="btn btn-sm btn-outline-primary custom-bg shadow-none">More Details</a>
-                        </div>
-
-
-
-
-
-                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     </div>
                 </div>
+                <div class="col-lg-12 text-center mt-5">
+                    <a href="#" class="btn btn-sm btn-outline-primary rounded-0 fw-bold shadow-none">More Rooms</a>
+                </div>
+
+
+
             </div>
-            <div class="col-lg-12 text-center mt-5">
-                <a href="#" class="btn btn-sm btn-outline-primary rounded-0 fw-bold shadow-none">More Rooms</a>
-            </div>
-
-
-
         </div>
     </div>
+    
 
     <!-- Facilities -->
     <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Our Facilities</h2>

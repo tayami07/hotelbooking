@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/common.css"/>
     <title>Thyzen - Hotels</title>
 
     <!-- Links -->
-    <?php require('inc/links.php'); ?>
+    <?php require('inc/links.php'); 
+    
+    ?>
 
 
 
@@ -31,11 +34,12 @@
             <div class="col-lg-3 col-md-12 mb-lg-0 mb-4 px-lg-0">
                 <nav class="navbar navbar-expand-lg navbar-light bg-white rounded shadow">
                     <div class="container-fluid dlex-lg-column align-items-stretch">
-                        <h4 class="mt-2">Filter</h4>
                         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="filterDropdown">
+                            <h4 class="mt-2">Filter</h4>
+
 
                             <!-- availability filter -->
                             <div class="border bg-light p-3 rounded mb-3">
@@ -93,7 +97,7 @@
                     <div class="row g-0 p-3 align-items-center">
                         <!-- Image -->
                         <div class="col-md-5 mb-lg-0 mb-md-0 mb-3">
-                            <img src="images/carousel/IMG_93127.png" class="img-fluid rounded-start">
+                            <img src="images/carousel/IMG_93127.png" class="img-fluid rounded-start" style="height:20rem; object-fit:cover">
                         </div>
                         <!-- Hotel mini details -->
                         <div class="col-md-5 px-lg-3 px-md-3 px-0">
@@ -136,13 +140,7 @@
                                     2 children
                                 </span>
                             </div>
-
-                            <!-- buttons -->
-                            <div class="col-md-2 text-center">
-                                <h6 class="mb-4">$100</h6>
-                                <a href="#" class="btn btn-sm w-100 btn-primary text-white shadow-none mb-2">Book Now</a>
-                                <a href="#" class="btn btn-sm w-100 btn-primary text-white shadow-none">More Details</a>
-                            </div>
+                         
 
                             <!-- Rating -->
                             <div class="rating mb-4">
@@ -167,15 +165,17 @@
                                 </div> -->
                         </div>
 
-                        <!-- Description and prices -->
-                        <div class="col-md-2 text-center">
-                            <!-- <h6 class="mb-4"></h6>
-                            <a href="#" class="btn btn-sm w-100 text-white bg-primary custom-bg shadow-none mb-2">Book Now</a> -->
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Ea enim maxime libero illum facilis mollitia obcaecati.</p>
-                            <a href="#" class="btn btn-sm w-100 btn-outline-dark shadow-none">Show prices</a>
+                        <div class="col-2">
+                                <!-- buttons -->
+                                <div class="text-center">
+                                    <h6 class="mb-4">$100</h6>
+                                    <a href="#" class="btn btn-sm w-100 btn-primary text-white shadow-none mb-2 custom-btn">Book Now</a>
+                                    <a href="#" class="btn btn-sm w-100 btn-primary text-white shadow-none">More Details</a>
+                                </div>
 
                         </div>
+
+
 
                     </div>
                 </div>

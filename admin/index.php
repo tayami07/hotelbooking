@@ -1,7 +1,7 @@
 <?php 
     require('inc/db_config.php'); 
     require('inc/essentials.php');
-    require('inc/adminheader.php');
+    // require('inc/adminheader.php');
     require('inc/links.php');
 
     session_start();

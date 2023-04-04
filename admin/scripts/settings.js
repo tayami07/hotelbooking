@@ -7,6 +7,11 @@ let site_title_inp = document.getElementById('site_title_inp');
 let site_about_inp = document.getElementById('site_about_inp');
 let contacts_s_form = document.getElementById('contacts_s_form');
 
+let team_s_form = document.getElementById('team_s_form');
+let member_name_inp = document.getElementById('member_name_inp');
+let member_picture_inp = document.getElementById('member_picture_inp');
+
+
 
 function get_general() {
     let site_title = document.getElementById('site_title');
@@ -152,6 +157,39 @@ function upd_contacts() {
         }
     }
     xhr.send(data_str);
+}
+
+team_s_form.addEventListener('submit',function(e){
+    e.preventDefault();
+    add_member();
+})
+
+function add_member()
+{
+    let data = new FormData();
+    data.append('name',member_name_inp.value);
+    data.append('picture',member_picture_inp.files[0]);
+    data.append('add_member','');
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "ajax/settings_crud.php", true); //asynchronously by "true"
+
+    xhr.onload = function () {
+        console.log(this.responseText);
+
+        // var myModal = document.getElementById('general-s') //fetching modal id
+        // var modal = bootstrap.Modal.getInstance(myModal); //calling getInstance function and passing id to var
+        // modal.hide();
+
+
+        // if (this.responseText == 1) {
+        //     alert('success', 'Changes saved!');
+        //     get_general(); //if any changes made call get_geenral function and asynchronously fetch data and show
+        // } else {
+        //     alert('error', 'No changes made!');
+        // }
+    }
+    xhr.send(data);
 }
 
 

@@ -1,7 +1,7 @@
 <?php
     require_once('admin/inc/db_config.php');
     require_once('admin/inc/essentials.php');
-    session_start();
+    // session_start();
 ?>
 
 <!-- Navbar -->
@@ -12,29 +12,29 @@
             <span class="navbar-toggler-icon "></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center w-75 ">
+                <li class="nav-item ">
                     <a class="nav-link me-2" href="index.php">Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link me-2" href="rooms.php">Rooms</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link me-2" href="services.php">Services</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link me-2" href="contact.php">Contact Us</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="about.php">About</a>
                 </li>
 
 
             </ul>
-            <form class="d-flex" role="search">
+            <!-- <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary " type="submit">Search</button>
-            </form>
+            </form> -->
             <a class="dropdown-item" href="logout.php">Log Out</a>
         </div>
     </div>
@@ -61,6 +61,7 @@
     }
     else {
         echo <<<data
+                <div class="d-flex w-25 justify-content-end">
                     <button type="button" class="btn btn-primary shadow-none me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#loginModal">
                         Log In
                     </button>
@@ -68,7 +69,9 @@
                     <button type="button" class="btn btn-primary shadow-none" data-bs-toggle="modal" data-bs-target="#registerModal">
                         Register
                     </button>
+                </div>
                 data;
+
     }
     ?>
     
@@ -97,8 +100,6 @@
                         <label class="form-label">Password</label>
                         <input name="password" type="password" class="form-control" required>
                     </div>
-
-
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary shadow-none">LOG IN</button>
                         <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
@@ -150,7 +151,6 @@
                             <div class="mb-3 col-md-6 ps-0">
                                 <label class="form-label">Email address</label>
                                 <input name="email" type="email" class="form-control" required>
-                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                             </div>
                             <!-- //contacts -->
                             <div class="mb-4 col-md-6 ps-0">
@@ -187,7 +187,6 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary shadow-none">Register</button>
-                                <!-- <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a> -->
                             </div>
                         </div>
                     </div>

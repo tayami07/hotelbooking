@@ -18,7 +18,7 @@
     $contact_r = mysqli_fetch_assoc(select($contactQ, $values, 'i'));
     ?>
     <!-- Footer -->
-    <div class="container-fluid bg-white mt-5">
+    <div class="container-fluid bg-white mt-5 d-flex">
         <div class="col-lg-4">
             <h3 class="h-font fw-bold fs-3 mb-2">Thyzen</h3>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
