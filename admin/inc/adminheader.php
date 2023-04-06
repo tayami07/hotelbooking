@@ -1,3 +1,9 @@
+<!-- Heading -->
+<div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
+    <h3 class="mb-0 h-font">THYZEN - ADMIN</h3>
+    <a href="logout.php" class="btn btn-light btn-sm">Log Out</a>
+</div>
+
 
 <!-- Side Nav Bar -->
 <div class="bg-dark border-top border-3 border-secondary h-100 " id="dashboard-menu">

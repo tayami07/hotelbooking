@@ -11,11 +11,12 @@
             </div>
         `;
         document.body.append(element);
+        setTimeout(remAlert, 2000);
     }
 
     function remAlert()
     {
-        doucment.getElementsByClassName('alert')[0].remove();
+        document.getElementsByClassName('alert')[0].remove();
     }
 
     //setActive

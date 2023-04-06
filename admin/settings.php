@@ -1,6 +1,6 @@
 <?php
-    require('inc/essentials.php');
-    adminLogin();
+require('inc/essentials.php');
+adminLogin();
 ?>
 
 
@@ -155,7 +155,7 @@
                     </div>
                 </div>
 
-                <!-- Contact details settings modal -->
+                <!-- Contact details modal -->
                 <div class="modal fade" id="contacts-s" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <form id="contacts_s_form">
@@ -242,7 +242,17 @@
                             </button>
                         </div>
                         <div class="row" id="team-data">
-
+                            <div class="col-md-2 mb-3">
+                                <div class="card text-bg-dark">
+                                    <img src="../images/member.jpg" class="card-img">
+                                    <div class="card-img-overlay text-end">
+                                        <button type="button" class="btn btn-danger btn-sm shadow-none">
+                                            <i class="bi-bit-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                    <p class="card-text text-center px-3 py-2"><small>Random Name</small></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -266,7 +276,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" onclick="site_title.value = general_data.site_title, site_about.value = general_data.site_about" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" onclick="member_name.value='', member_picture.value=''" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary text-white shadow-none">Save</button>
                                 </div>
                             </div>

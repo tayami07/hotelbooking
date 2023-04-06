@@ -1,6 +1,11 @@
 <?php
     require_once('admin/inc/db_config.php');
     require_once('admin/inc/essentials.php');
+
+    $contact_q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
+    $values = [1];
+    $contact_r = mysqli_fetch_assoc(select($contact_q, $values, 'i'));
+    // print_r($contact_r);
     // session_start();
 ?>
 
@@ -20,7 +25,7 @@
                     <a class="nav-link me-2" href="rooms.php">Rooms</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link me-2" href="services.php">Services</a>
+                    <a class="nav-link me-2" href="facilities.php">Facilities</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link me-2" href="contact.php">Contact Us</a>

@@ -2,6 +2,7 @@
 
     //frontend purpose data
     define('SITE_URL','http://127.0.0.1/hotelbooking/');
+    define('ABOUT_IMG_PATH',SITE_URL.'images/about/');
     define('USERS_IMG_PATH',SITE_URL.'images/users/');
     define('FACILITIES_IMG_PATH',SITE_URL.'images/facilities/');
 
@@ -27,9 +28,11 @@
         if(!(isset($_SESSION['adminLogin'])&& $_SESSION['adminLogin']==true)){
             header("location: index.php");
         }
+        // exit;
+        // session_regenerate_id(true);
 
         //secures old session data but generates new id
-        session_regenerate_id(true); //new session id every time adminLogin is checked
+         //new session id every time adminLogin is checked
     }
 
     //to redirect to the url
@@ -144,6 +147,16 @@
             else{
                 return 'upd_failed';
             }
+        }
+    }
+
+    function deleteImage($image,$folder)
+    {
+        if(unlink(UPLOAD_IMAGE_PATH.$folder.$image)){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

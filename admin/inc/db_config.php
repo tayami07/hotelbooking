@@ -11,9 +11,6 @@
         die("cannot connect" .mysqli_connect_error());
     }
 
-    
-    
-
     function filteration($data){
         foreach($data as $key => $value)
         {
@@ -32,7 +29,7 @@
         return $res;
     }
 
-    function select ($sql,$values,$datatypes){
+    function select($sql,$values,$datatypes){
         $con = $GLOBALS['con'];
         if($stmt = mysqli_prepare($con,$sql))
         {

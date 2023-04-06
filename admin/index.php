@@ -53,14 +53,9 @@
     <?php
     if (isset($_POST['login'])) {
         $frm_data = filteration($_POST);
-
-        // print_r($frm_data);
-        //print_r($$_POST);
-
         $query = "SELECT * FROM `admin_cred` WHERE `admin_name` =? AND `admin_pass`=?";
         $values = [$frm_data['admin_name'], $frm_data['admin_pass']];
-        //$datatypes = "ss";
-
+        
         $res = select($query, $values, "ss");
         //print_r($res);
         if ($res->num_rows == 1) {

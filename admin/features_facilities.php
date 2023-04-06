@@ -3,48 +3,48 @@
     require('inc/db_config.php');
     adminLogin();
 
-    if (isset($_GET['seen'])) {
-        $frm_data = filteration($_GET);
+    // if (isset($_GET['seen'])) {
+    //     $frm_data = filteration($_GET);
 
-        if ($frm_data['seen'] == 'all') {
-            $q = "UPDATE `user_queries` SET `seen`=?";
-            $values = [1];
-            if (update($q, $values, 'i')) {
-                alert('success', 'Marked all as read');
-            } else {
-                alert('error', 'Operation failed');
-            }
-        } else {
-            $q = "UPDATE `user_queries` SET `seen`=? WHERE `sr_no`=?";
-            $values = [1, $frm_data['seen']];
-            if (update($q, $values, 'ii')) {
-                alert('success', 'Marked as read');
-            } else {
-                alert('error', 'Operation failed');
-            }
-        }
-    }
+    //     if ($frm_data['seen'] == 'all') {
+    //         $q = "UPDATE `user_queries` SET `seen`=?";
+    //         $values = [1];
+    //         if (update($q, $values, 'i')) {
+    //             alert('success', 'Marked all as read');
+    //         } else {
+    //             alert('error', 'Operation failed');
+    //         }
+    //     } else {
+    //         $q = "UPDATE `user_queries` SET `seen`=? WHERE `sr_no`=?";
+    //         $values = [1, $frm_data['seen']];
+    //         if (update($q, $values, 'ii')) {
+    //             alert('success', 'Marked as read');
+    //         } else {
+    //             alert('error', 'Operation failed');
+    //         }
+    //     }
+    // }
 
-    if (isset($_GET['del'])) {
-        $frm_data = filteration($_GET);
+    // if (isset($_GET['del'])) {
+    //     $frm_data = filteration($_GET);
 
-        if ($frm_data['del'] == 'all') {
-            $q = "DELETE FROM `user_queries`";
-            if (mysqli_query($con, $q)) {
-                alert('success', 'Data deleted');
-            } else {
-                alert('error', 'Operation failed');
-            }
-        } else {
-            $q = "DELETE FROM `user_queries` WHERE `sr_no`=?";
-            $values = [$frm_data['del']];
-            if (delete($q, $values, 'i')) {
-                alert('success', 'Data deleted');
-            } else {
-                alert('error', 'Operation failed');
-            }
-        }
-    }
+    //     if ($frm_data['del'] == 'all') {
+    //         $q = "DELETE FROM `user_queries`";
+    //         if (mysqli_query($con, $q)) {
+    //             alert('success', 'Data deleted');
+    //         } else {
+    //             alert('error', 'Operation failed');
+    //         }
+    //     } else {
+    //         $q = "DELETE FROM `user_queries` WHERE `sr_no`=?";
+    //         $values = [$frm_data['del']];
+    //         if (delete($q, $values, 'i')) {
+    //             alert('success', 'Data deleted');
+    //         } else {
+    //             alert('error', 'Operation failed');
+    //         }
+    //     }
+    // }
 
 ?>
 
@@ -267,8 +267,8 @@
             add_facility();
         });
 
-        function add_facility() {
-
+        function add_facility() 
+        {
             let data = new FormData();
             data.append('name', facility_s_form.elements['facility_name'].value);
             data.append('icon', facility_s_form.elements['facility_icon'].files[0]);
@@ -298,10 +298,12 @@
                     get_facilities();
                 }
             }
+            
             xhr.send(data);
         }
 
-        function get_facilities() {
+        function get_facilities() 
+        {
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "ajax/features_facilities.php", true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -312,7 +314,8 @@
             xhr.send('get_facilities');
         }
 
-        function rem_facility(val) {
+        function rem_facility(val) 
+        {
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "ajax/features_facilities.php", true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -332,7 +335,8 @@
             xhr.send('rem_facility=' + val);
         }
 
-        window.onload = function() {
+        window.onload = function()
+        {
             get_features();
             get_facilities();
         }
