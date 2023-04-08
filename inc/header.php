@@ -1,6 +1,8 @@
 <?php
     require_once('admin/inc/db_config.php');
     require_once('admin/inc/essentials.php');
+    require_once('links.php');
+
 
     $contact_q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
     $values = [1];
@@ -8,6 +10,9 @@
     // print_r($contact_r);
     // session_start();
 ?>
+<!-- CSS -->
+<link rel="stylesheet" href="../css/common.css">
+</link>
 
 <!-- Navbar -->
 <nav id="nav-bar" class="navbar navbar-expand-lg bg-body-tertiary bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
@@ -71,7 +76,7 @@
                         Log In
                     </button>
             
-                    <button type="button" class="btn btn-primary shadow-none" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    <button type="button" class="btn btn-primary custom-btn shadow-none" data-bs-toggle="modal" data-bs-target="#registerModal">
                         Register
                     </button>
                 </div>

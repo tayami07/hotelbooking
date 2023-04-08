@@ -36,13 +36,15 @@ input::-webkit-inner-spin-button{
 }
 
 .custom-btn{
-    background-color: red !important;
+    background-color:#5EB0D3 !important;
 }
 .h-line{
     width: 150px;
     margin: 0 auto;
     height: 1.7px;
 }
+
+
 
 /* #dashboard-menu{
     position: fixed;

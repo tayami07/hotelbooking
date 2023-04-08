@@ -5,16 +5,14 @@
     define('ABOUT_IMG_PATH',SITE_URL.'images/about/');
     define('USERS_IMG_PATH',SITE_URL.'images/users/');
     define('FACILITIES_IMG_PATH',SITE_URL.'images/facilities/');
-
-
+    define('ROOMS_IMG_PATH',SITE_URL.'images/rooms/');
 
     //backend upload process data needs this data
     define('UPLOAD_IMAGE_PATH',$_SERVER['DOCUMENT_ROOT'].'/hotelbooking/images/');
     define('ABOUT_FOLDER','about/');
     define('USERS_FOLDER','users/');
     define('FACILITIES_FOLDER','facilities/');
-
-
+    define('ROOMS_FOLDER','rooms/');
 
     //sendgrid api key
     define('SENDGRID_API_KEY','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');

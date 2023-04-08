@@ -1,50 +1,50 @@
 <?php
-    require('inc/essentials.php');
-    require('inc/db_config.php');
-    adminLogin();
+require('inc/essentials.php');
+require('inc/db_config.php');
+adminLogin();
 
-    // if (isset($_GET['seen'])) {
-    //     $frm_data = filteration($_GET);
+// if (isset($_GET['seen'])) {
+//     $frm_data = filteration($_GET);
 
-    //     if ($frm_data['seen'] == 'all') {
-    //         $q = "UPDATE `user_queries` SET `seen`=?";
-    //         $values = [1];
-    //         if (update($q, $values, 'i')) {
-    //             alert('success', 'Marked all as read');
-    //         } else {
-    //             alert('error', 'Operation failed');
-    //         }
-    //     } else {
-    //         $q = "UPDATE `user_queries` SET `seen`=? WHERE `sr_no`=?";
-    //         $values = [1, $frm_data['seen']];
-    //         if (update($q, $values, 'ii')) {
-    //             alert('success', 'Marked as read');
-    //         } else {
-    //             alert('error', 'Operation failed');
-    //         }
-    //     }
-    // }
+//     if ($frm_data['seen'] == 'all') {
+//         $q = "UPDATE `user_queries` SET `seen`=?";
+//         $values = [1];
+//         if (update($q, $values, 'i')) {
+//             alert('success', 'Marked all as read');
+//         } else {
+//             alert('error', 'Operation failed');
+//         }
+//     } else {
+//         $q = "UPDATE `user_queries` SET `seen`=? WHERE `sr_no`=?";
+//         $values = [1, $frm_data['seen']];
+//         if (update($q, $values, 'ii')) {
+//             alert('success', 'Marked as read');
+//         } else {
+//             alert('error', 'Operation failed');
+//         }
+//     }
+// }
 
-    // if (isset($_GET['del'])) {
-    //     $frm_data = filteration($_GET);
+// if (isset($_GET['del'])) {
+//     $frm_data = filteration($_GET);
 
-    //     if ($frm_data['del'] == 'all') {
-    //         $q = "DELETE FROM `user_queries`";
-    //         if (mysqli_query($con, $q)) {
-    //             alert('success', 'Data deleted');
-    //         } else {
-    //             alert('error', 'Operation failed');
-    //         }
-    //     } else {
-    //         $q = "DELETE FROM `user_queries` WHERE `sr_no`=?";
-    //         $values = [$frm_data['del']];
-    //         if (delete($q, $values, 'i')) {
-    //             alert('success', 'Data deleted');
-    //         } else {
-    //             alert('error', 'Operation failed');
-    //         }
-    //     }
-    // }
+//     if ($frm_data['del'] == 'all') {
+//         $q = "DELETE FROM `user_queries`";
+//         if (mysqli_query($con, $q)) {
+//             alert('success', 'Data deleted');
+//         } else {
+//             alert('error', 'Operation failed');
+//         }
+//     } else {
+//         $q = "DELETE FROM `user_queries` WHERE `sr_no`=?";
+//         $values = [$frm_data['del']];
+//         if (delete($q, $values, 'i')) {
+//             alert('success', 'Data deleted');
+//         } else {
+//             alert('error', 'Operation failed');
+//         }
+//     }
+// }
 
 ?>
 
@@ -63,73 +63,99 @@
 </head>
 
 <body class="bg-light">
+    <div class="row">
+        <div class="col-12">
+            <!-- Heading -->
+            <div class="w-100">
+                <div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
 
-    <?php require('inc/adminheader.php') ?>
-
-    <div class="container-fluid" id="main-content">
-        <div class="row">
-            <div class="col-lg-10 ms-auto -4 overflow-hidden">
-                <h3 class="mb-4">FEATURES AND FACILITIES</h3>
-
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h5 class="card-title m-0">Features</h5>
-                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#feature-s">
-                                <i class="bi bi-pencil-square"></i>Edit
-                            </button>
-                        </div>
-
-                        <div class="table-responsive-md" style="height: 350px; overflow-y: scroll;">
-                            <table class="table table-hover border">
-                                <thead>
-                                    <tr class="bg-dark text-light">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="features-data">
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <h3 class="mb-0 h-font">THYZEN - ADMIN</h3>
+                    <a href="logout.php" class="btn btn-light btn-sm">Log Out</a>
                 </div>
 
-                <!-- facilities -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h5 class="card-title m-0">Facilities</h5>
-                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#facility-s">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </button>
-                        </div>
 
-                        <div class="table-responsive-md" style="height: 350px; overflow-y: scroll;">
-                            <table class="table table-hover border">
-                                <thead>
-                                    <tr class="bg-dark text-light">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Icon</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col" width="40%">Description</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="facilities-data">
-                                    
-                                </tbody>
-                            </table>
-                        </div>
 
+            </div>
+
+        </div>
+        <div class="col-3">
+            <?php require('inc/adminheader.php') ?>
+        </div>
+        <div class="container-fluid col-9 mt-3" id="main-content">
+            <div class="row">
+                <div class="col-lg-10  p-4overflow-hidden">
+                    <div class="container-fluid" id="main-content">
+                        <div class="row">
+                            <div class="col-lg-10 ms-auto -4 overflow-hidden">
+                                <h3 class="mb-4">FEATURES AND FACILITIES</h3>
+
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <h5 class="card-title m-0">Features</h5>
+                                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#feature-s">
+                                                <i class="bi bi-pencil-square"></i>Edit
+                                            </button>
+                                        </div>
+
+                                        <div class="table-responsive-md" style="height: 350px; overflow-y: scroll;">
+                                            <table class="table table-hover border">
+                                                <thead>
+                                                    <tr class="bg-dark text-light">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="features-data">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- facilities -->
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <h5 class="card-title m-0">Facilities</h5>
+                                            <button type="button" class="btn btn-dark shadow-none btn-sm" data-bs-toggle="modal" data-bs-target="#facility-s">
+                                                <i class="bi bi-pencil-square"></i> Edit
+                                            </button>
+                                        </div>
+
+                                        <div class="table-responsive-md" style="height: 350px; overflow-y: scroll;">
+                                            <table class="table table-hover border">
+                                                <thead>
+                                                    <tr class="bg-dark text-light">
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Icon</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col" width="40%">Description</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="facilities-data">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
+
                 </div>
-                 
             </div>
         </div>
     </div>
+
+
+
 
     <!-- features modal-->
 
@@ -204,7 +230,7 @@
         function add_feature() {
             let data = new FormData();
             data.append('name', feature_s_form.elements['feature_name'].value);
-            data.append('add_feature','');
+            data.append('add_feature', '');
 
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "ajax/features_facilities.php", true);
@@ -216,10 +242,9 @@
 
                 if (this.responseText == 1) {
                     alert('success', 'New feature added!');
-                    feature_s_form.elements['feature_name'].value='';
+                    feature_s_form.elements['feature_name'].value = '';
                     get_features();
-                }
-                else {
+                } else {
                     alert('error', 'Server down!');
                 }
 
@@ -267,13 +292,12 @@
             add_facility();
         });
 
-        function add_facility() 
-        {
+        function add_facility() {
             let data = new FormData();
             data.append('name', facility_s_form.elements['facility_name'].value);
             data.append('icon', facility_s_form.elements['facility_icon'].files[0]);
             data.append('desc', facility_s_form.elements['facility_desc'].value);
-            data.append('add_facility','');
+            data.append('add_facility', '');
 
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "ajax/features_facilities.php", true);
@@ -285,25 +309,21 @@
 
                 if (this.responseText == 'inv_img') {
                     alert('error', 'Only SVG images are allowed!');
-                }
-                else if (this.responseText == 'inv_size') {
+                } else if (this.responseText == 'inv_size') {
                     alert('error', 'Image should be less than 1MB!');
-                }
-                else if (this.responseText == 'upd_failed') {
+                } else if (this.responseText == 'upd_failed') {
                     alert('error', 'Image upload failed. Server Down!');
-                }
-                else {
+                } else {
                     alert('success', 'New facility added!');
                     facility_s_form.reset();
                     get_facilities();
                 }
             }
-            
+
             xhr.send(data);
         }
 
-        function get_facilities() 
-        {
+        function get_facilities() {
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "ajax/features_facilities.php", true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -314,29 +334,25 @@
             xhr.send('get_facilities');
         }
 
-        function rem_facility(val) 
-        {
+        function rem_facility(val) {
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "ajax/features_facilities.php", true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
             xhr.onload = function() {
-                if (this.responseText==1) {
+                if (this.responseText == 1) {
                     alert('success', 'Facility removed!');
                     get_facilities();
-                }
-                else if (this.responseText=='room_added') {
+                } else if (this.responseText == 'room_added') {
                     alert('error', 'Facility is added in room!');
-                }
-                else{
+                } else {
                     alert('Server down');
                 }
             }
             xhr.send('rem_facility=' + val);
         }
 
-        window.onload = function()
-        {
+        window.onload = function() {
             get_features();
             get_facilities();
         }

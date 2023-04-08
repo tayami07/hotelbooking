@@ -1,0 +1,28 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+.custom-btn{
+    background-color:#5EB0D3 !important;
+    border-color:#5EB0D3 !important;
+
+}
+
+
+.custom-btn-outline{
+    border-color:#5EB0D3 !important;
+    color:#5EB0D3 !important;
+
+}
+
+.custom-btn-outline:hover{
+    background-color:#5EB0D3 !important;
+    border-color:#5EB0D3 !important;
+    color:white !important;
+}
+
+.btn-sm-custom{
+    width:200px !important;
+}
