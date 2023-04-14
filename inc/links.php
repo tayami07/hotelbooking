@@ -10,8 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <!-- CSS -->
-<link rel="stylesheet" href="../css/common1.css">
-</link>
+<link rel="stylesheet" href="css/common1.css"/>
 
 <!--Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -25,9 +24,9 @@
 
     require('admin/inc/db_config.php');
     require('admin/inc/essentials.php');
-
-
-
-
+    
+    $contact_q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
+    $values = [1];
+    $contact_r = mysqli_fetch_assoc(select($contact_q, $values, 'i'));
 
 ?>

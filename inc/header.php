@@ -1,19 +1,15 @@
 <?php
     require_once('admin/inc/db_config.php');
     require_once('admin/inc/essentials.php');
-    require_once('links.php');
-
-
-    $contact_q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
-    $values = [1];
-    $contact_r = mysqli_fetch_assoc(select($contact_q, $values, 'i'));
     // print_r($contact_r);
     // session_start();
 ?>
 <!-- CSS -->
-<link rel="stylesheet" href="../css/common.css">
-</link>
-
+<!-- <link rel="stylesheet" href="../css/buttons.css"></link> -->
+<!-- <link rel="stylesheet" href="../css/common.css"></link> -->
+<?php 
+    require_once('links.php');
+?> 
 <!-- Navbar -->
 <nav id="nav-bar" class="navbar navbar-expand-lg bg-body-tertiary bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
     <div class="container-fluid">
@@ -52,21 +48,22 @@
     <!-- Session array -->
     
     <?php
-    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == true) 
+    {
         $path = USERS_IMG_PATH;
 
         echo <<<data
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                            <img src="$path$_SESSION[uPic]" style="width 25px; height: 25px;" class="me-1">
-                            $_SESSION[ufName]
-                        </button>
+                <div class="btn-group">
+                    <button type="button" class="btn custom-btn shadow-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <img src="$path$_SESSION[uPic]" style="width:25px; height:25px;" class="me-1"/>
+                        $_SESSION[ufName]
+                    </button>
                         <ul class="dropdown-menu dropdown-menu-lg-end">
-                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                            <li><a class="dropdown-item" href="bookings.php">Bookings</a></li>
-                            <li><a class="dropdown-item" href="logout.php">Log Out</a></li>
+                            <li><button class="dropdown-item" href="profile.php">Profile</button></li>
+                            <li><button class="dropdown-item" href="bookings.php">Nooking</button></li>
+                            <li><button class="dropdown-item" type="button">Something else here</button></li>
                         </ul>
-                    </div>
+                </div>
                 data;
     }
     else {
@@ -81,7 +78,6 @@
                     </button>
                 </div>
                 data;
-
     }
     ?>
     
@@ -110,15 +106,17 @@
                         <label class="form-label">Password</label>
                         <input name="password" type="password" class="form-control" required>
                     </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary shadow-none">LOG IN</button>
-                        <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <button type="submit" class="btn btn-primary shadow-none" data-bs-dismiss="modal">LOG IN</button>
+                        <button type="button" class="btn text-secondary text-decoration-none shadow-none p-0" data-bs-toggle="modal" data-bs-target="#forgotModal">
+                            Forgot Password
+                        </button>
+                        <!-- <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a> -->
                     </div>
 
                 </div>
 
             </form>
-
 
         </div>
     </div>
@@ -231,8 +229,7 @@
                         <button type="button" class="btn text-secondary text-decoration-none shadow-none" data-bs-toggle="modal" data-bs-target="#loginModal">
                             Cancel
                         </button>
-                        <button type="submit" class="btn btn-primary shadow-none p-0 me-2">Send Link</button>
-
+                        <button type="submit" class="btn btn-primary shadow-none p-1 me-2">Send Link</button>
                     </div>
 
                 </div>

@@ -134,8 +134,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['login'] = true;
                 $_SESSION['uId'] = $u_fetch['id'];
                 $_SESSION['ufName'] = $u_fetch['fname'];
-                $_SESSION['ulName'] = $u_fetch['lname'];
-                $_SESSION['upic'] = $u_fetch['picture'];
+                $_SESSION['uPic'] = $u_fetch['profile'];
                 $_SESSION['uPhone'] = $u_fetch['phonenum'];
                 echo 1;
             }

@@ -8,8 +8,6 @@
     <title>Thyzen - Home</title>
     <link rel="stylesheet" href="css/buttons.css" />
 
-
-
     <!-- Links -->
     <?php require('inc/links.php');
     ?>
@@ -38,9 +36,7 @@
         }
     </style>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <!-- CSS -->
-
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> -->
 
 </head>
 
@@ -303,12 +299,48 @@
         </div>
     </div>
 
+    <!-- Password reset modal -->
+
+    <div class="modal fade" id="recoveryModal" aria-hidden="true" aria-labelledby="forgotModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form id="recovery-form">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center">
+                        <i class="bi bi-shield-lock fs-3 me-2"></i>Set up new password
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <label class="form-label">New Password</label>
+                        <input name="password" type="password" class="form-control shadow-none" required>
+                    </div>
+                    <div class="mb-2 text-end">
+                        <button type="button" class="btn text shadow-none me-2" data-bs-dismis="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary shadow-none p-1 me-2">Submit</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
     <?php require('inc/footer.php'); ?>
 
+<?php 
 
+
+?>
 
     <!-- Initialize Swiper -->
-    <script>
+    <!-- <script>
         var swiper = new Swiper(".swiper-container", {
             spaceBetween: 30,
             effect: "fade",
@@ -320,7 +352,7 @@
         });
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script> -->
 
 </body>
 
