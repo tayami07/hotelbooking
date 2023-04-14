@@ -15,7 +15,7 @@
     define('ROOMS_FOLDER','rooms/');
 
     //sendgrid api key
-    define('SENDGRID_API_KEY','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');
+    define('SENDGRID_API_KEY','');
     define('SENDGRID_EMAIL','tayamirai@gmail.com');
     define('SENDGRID_NAME','THYZEN');
 
