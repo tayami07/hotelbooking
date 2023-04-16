@@ -176,13 +176,13 @@ if (isset($_GET['del'])) {
                                     $res = selectAll('features');
                                     while ($opt = mysqli_fetch_assoc($res)) {
                                         echo "
-                                                    <div class='col-md-3 mb-1'>
-                                                        <label>
-                                                            <input type='checkbox' name='features' value='$opt[id]' class='form-check-input shadow-none'>
-                                                            $opt[name]
-                                                        </label>
-                                                    </div>
-                                                ";
+                                                <div class='col-md-3 mb-1'>
+                                                    <label>
+                                                        <input type='checkbox' name='features' value='$opt[id]' class='form-check-input shadow-none'>
+                                                        $opt[name]
+                                                    </label>
+                                                </div>
+                                            ";
                                     }
                                     ?>
                                 </div>

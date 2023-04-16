@@ -217,7 +217,7 @@
 
     // forgot password
     let forgot_form = document.getElementById('forgot-form');
-    login_form.addEventListener('submit', (e) => {
+    forgot_form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         let data = new FormData(); //FormData used for image upload
@@ -246,14 +246,23 @@
                 alert('error', "Password reset failed.");
             } else {
                 alert('success', "Confirmation link sent to mail.");
-                business_form.reset();
+                forgot_form.reset();
             }
         }
         xhr.send(data);
 
     });
 
-
+    //check login
+    function checkLoginToBook(status,room_id)
+    {
+        if(status){
+            window.location.href='confirm_booking.php?id='+room_id;
+        }
+        else{
+            alert('error', 'Please login to book room!');
+        }
+    }
     setActive();
 </script>
 

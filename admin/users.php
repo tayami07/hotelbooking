@@ -57,12 +57,15 @@ if (isset($_GET['del'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Queries</title>
+    <title>Admin Panel - Users</title>
 
     <?php require('inc/links.php'); ?>
+    <!-- <link rel="stylesheet" type="text/css" href="css/common.css"> -->
 </head>
 
 <body class="bg-light">
+
+
     <div class="row">
         <div class="col-12">
             <!-- Heading -->
@@ -83,72 +86,52 @@ if (isset($_GET['del'])) {
         </div>
         <div class="container-fluid col-9 mt-3" id="main-content">
             <div class="row">
-                <div class=" p-4 overflow-hidden">
+                <div class="p-4 overflow-hidden">
+
                     <div class="container-fluid" id="main-content">
                         <div class="row">
-                            <div class=" ms-auto -4 overflow-hidden">
-                                <h3 class="mb-4">User Queries</h3>
+                            <div class="ms-auto -4 overflow-hidden">
+                                <h3 class="mb-4">USERS</h3>
 
                                 <div class="card border-0 shadow-sm mb-4">
                                     <div class="card-body">
                                         <div class="text-end mb-4">
-                                            <a href="?seen=all" class="btn btn-dark rounded-pill shadow-none btn-sm">
-                                                <i class="bi bi-check-all"></i> Mark all as read
-                                            </a>
-                                            <a href="?del=all" class="btn btn-dark rounded-pill shadow-none btn-sm">
-                                                <i class="bi bi-trash"></i> Delete all
-                                            </a>
+                                            <input type="text" oninput="search_user(this.value)" class="form-control shadow-none w-25 ms-auto" placeholder="Search">
                                         </div>
-                                        <div class="table-responsive-md" style="height: 450px; overflow-y: scroll;">
-                                            <table class="table table-hover border">
-                                                <thead class="sticky-top">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover border text-center" style="min-width: 1300px;">
+                                                <thead>
                                                     <tr class="bg-dark text-light">
                                                         <th scope="col">#</th>
-                                                        <th scope="col">Name</th>
+                                                        <th scope="col">First Name</th>
+                                                        <th scope="col">Last Name</th>
+                                                        <th scope="col">Gender</th>
+
                                                         <th scope="col">Email</th>
-                                                        <th scope="col" width="20%">Subject</th>
-                                                        <th scope="col" width="30%">Message</th>
+                                                        <th scope="col">Phone no.</th>
+                                                        <th scope="col">City</th>
+                                                        <th scope="col">Country</th>
+                                                        <th scope="col">Pincode</th>
+                                                        <th scope="col">DOB</th>
+
+                                                        <th scope="col">Verified</th>
+                                                        <th scope="col">Status</th>
                                                         <th scope="col">Date</th>
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $q = "SELECT * FROM `user_queries` ORDER BY `sr_no` DESC";
-                                                    $data = mysqli_query($con, $q);
-                                                    $i = 1;
-
-                                                    while ($row = mysqli_fetch_assoc($data)) {
-                                                        $seen = '';
-                                                        if ($row['seen'] != 1) {
-                                                            $seen = "<a href='?seen=$row[sr_no]' class='btn btn-sm rounded-pill btn-primary'>Mark as read</a> <br>";
-                                                        }
-                                                        $seen .= "<a href='?del=$row[sr_no]' class='btn btn-sm rounded-pill btn-danger mt-2'>Delete</a>";
-
-                                                        echo <<<query
-                                    <tr>
-                                        <td>$i</td>
-                                        <td>$row[name]</td>
-                                        <td>$row[email]</td>
-                                        <td>$row[subject]</td>
-                                        <td>$row[message]</td>
-                                        <td>$row[date]</td>
-                                        <td>$seen</td>
-                                    </tr>
-                                    query;
-                                                        $i++;
-                                                    }
-                                                    ?>
+                                                <tbody id="users-data">
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
 
-
                             </div>
                         </div>
                     </div>
+
 
                 </div>
             </div>
@@ -157,9 +140,8 @@ if (isset($_GET['del'])) {
 
 
 
-
-
     <?php require('inc/scripts.php'); ?>
+    <script src="scripts/users.js"></script>
 
 
 </body>

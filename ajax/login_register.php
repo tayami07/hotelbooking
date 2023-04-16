@@ -163,7 +163,7 @@ if (isset($_POST['forgot_pass'])) {
         } else {
             //send reset link to email
             $token = bin2hex(random_bytes(16));
-            if (send_mail($data['email'], $token, 'account_recovery')) {
+            if (!send_mail($data['email'], $token, 'account_recovery')) {
                 echo 'mail_failed';
             } else {
                 $date = date("Y-m-d");
@@ -178,6 +178,25 @@ if (isset($_POST['forgot_pass'])) {
             }
         }
     }
-    // echo($u_exist_fetch['email'] == $data['email']) ? 'email_already' : 'phone_already';
-    // exit;
+}
+
+
+if (isset($_POST['recover_user']))
+{
+    $data = filteration($_POST);
+
+    $enc_pass = password_hash($data['password'],PASSWORD_BCRYPT);
+
+    $query = "UPDATE `user_cred` SET `password`=?, `token`=?, `t_expire`=?
+     WHERE `email`=? AND `token`=?";
+
+    $values = [$enc_pass,null,null,$data['email'],$data['token']];
+
+    if(update($query,$values,'sssss'))
+    {
+        echo 1;
+    }
+    else{
+        echo 'failed';
+    }
 }

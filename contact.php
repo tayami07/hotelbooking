@@ -113,7 +113,7 @@
                             <textarea name="message" class="form-control" rows="5" style="resize:none;"></textarea>
                         </div>
 
-                        <button type="submit" name="send" class="btn btn-primary text-white custom-bg mt-3">Send</button>
+                        <button type="submit" name="send" class="btn text-white custom-btn mt-3">Send</button>
                         <!-- <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a> -->
 
                     </form>

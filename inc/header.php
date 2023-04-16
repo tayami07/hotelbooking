@@ -4,6 +4,7 @@
     // print_r($contact_r);
     // session_start();
 ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <!-- CSS -->
 <!-- <link rel="stylesheet" href="../css/buttons.css"></link> -->
 <!-- <link rel="stylesheet" href="../css/common.css"></link> -->
@@ -41,7 +42,6 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary " type="submit">Search</button>
             </form> -->
-            <a class="dropdown-item" href="logout.php">Log Out</a>
         </div>
     </div>
 
@@ -60,8 +60,9 @@
                     </button>
                         <ul class="dropdown-menu dropdown-menu-lg-end">
                             <li><button class="dropdown-item" href="profile.php">Profile</button></li>
-                            <li><button class="dropdown-item" href="bookings.php">Nooking</button></li>
-                            <li><button class="dropdown-item" type="button">Something else here</button></li>
+                            <li><button class="dropdown-item" href="bookings.php">Booking</button></li>
+                            <a class="dropdown-item" href="logout.php">Log Out</a>
+
                         </ul>
                 </div>
                 data;
@@ -69,7 +70,7 @@
     else {
         echo <<<data
                 <div class="d-flex w-25 justify-content-end">
-                    <button type="button" class="btn btn-primary shadow-none me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <button type="button" class="btn btn-primary custom-btn shadow-none me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#loginModal">
                         Log In
                     </button>
             
@@ -108,7 +109,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <button type="submit" class="btn btn-primary shadow-none" data-bs-dismiss="modal">LOG IN</button>
-                        <button type="button" class="btn text-secondary text-decoration-none shadow-none p-0" data-bs-toggle="modal" data-bs-target="#forgotModal">
+                        <button type="button" class="btn text-secondary text-decoration-none shadow-none p-0" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#forgotModal">
                             Forgot Password
                         </button>
                         <!-- <a href="javascript: void(0)" class="text-secondary text-decoration-none">Forgot Password?</a> -->
@@ -143,11 +144,11 @@
                         <div class="row">
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">First Name</label>
-                                <input name="fname" type="text" class="form-control" required>
+                                <input name="fname" type="text" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Last Name</label>
-                                <input name="lname" type="text" class="form-control" required>
+                                <input name="lname" type="text" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <select class="form-select" name="gender" for="gender" required>
@@ -158,40 +159,40 @@
                             </div>
                             <div class="mb-3 col-md-6 ps-0">
                                 <label class="form-label">Email address</label>
-                                <input name="email" type="email" class="form-control" required>
+                                <input name="email" type="email" class="form-control shadow-none" required>
                             </div>
                             <!-- //contacts -->
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Picture</label>
-                                <input name="profile" type="file" class="form-control" required>
+                                <input name="profile" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Phone Number</label>
-                                <input name="phonenum" type="number" class="form-control" required>
+                                <input name="phonenum" type="number" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">City</label>
-                                <input name="city" type="text" class="form-control" required>
+                                <input name="city" type="text" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Country</label>
-                                <input name="country" type="text" class="form-control" required>
+                                <input name="country" type="text" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Pincode</label>
-                                <input name="pincode" type="number" class="form-control" required>
+                                <input name="pincode" type="number" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Date of Birth(DOB)</label>
-                                <input name="dob" type="date" class="form-control" required>
+                                <input name="dob" type="date" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control" required>
+                                <input name="password" type="password" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Confirm Password</label>
-                                <input name="cpassword" type="password" class="form-control" required>
+                                <input name="cpassword" type="password" class="form-control shadow-none" required>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary shadow-none">Register</button>
@@ -226,7 +227,7 @@
                         <input name="email" type="email" class="form-control shadow-none" required>
                     </div>
                     <div class="mb-2 text-end">
-                        <button type="button" class="btn text-secondary text-decoration-none shadow-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <button type="button" class="btn shadow-none p-0 me-2" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
                             Cancel
                         </button>
                         <button type="submit" class="btn btn-primary shadow-none p-1 me-2">Send Link</button>
@@ -235,7 +236,6 @@
                 </div>
 
             </form>
-
 
         </div>
     </div>

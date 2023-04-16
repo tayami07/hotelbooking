@@ -128,6 +128,13 @@
                         $thumb_res = mysqli_fetch_assoc($thumb_q);
                         $room_thumb = ROOMS_IMG_PATH . $thumb_res['image'];
                     }
+
+
+                    $book_btn = "";
+                    if (!$settings_r['shutdown']) {
+                        $book_btn = "<a href='#' class='btn btn-sm w-100 text-white shadow-none mb-2 custom-btn'>Book Now</a>";
+                    }
+
                     //print room card
                     echo <<<data
                         <div class="card mb-4 border-0 shadow">
@@ -136,7 +143,9 @@
                                 <div class="col-md-5 mb-lg-0 mb-md-0 mb-3">
                                     <img src="$room_thumb" class="img-fluid rounded-start" style="height:20rem; object-fit:cover">
                                 </div>
+
                                 <!-- Hotel mini details -->
+
                                 <div class="col-md-5 px-lg-3 px-md-3 px-0">
         
                                     <h5 class="mb-3">$room_data[name]</h5>
@@ -173,25 +182,14 @@
                                             <i class="bi bi-star-fill text-warning"></i>
                                         </span>
                                     </div>
-        
-                                    <!-- Guests for Room -->
-                                    <!-- <div class="guests mb-4">
-                                            <h6 class="mb-1">Guests</h6>
-                                            <span class="badge rounded-pil bg-light text-dark text-wrap">
-                                                2 Adults
-                                            </span>
-                                            <span class="badge rounded-pil bg-light text-dark text-wrap">
-                                                2 Children
-                                            </span>
-                                        </div> -->
                                 </div>
         
                                 <div class="col-2">
                                     <!-- buttons -->
                                     <div class="mt-lg-0 mt-md-0 mt-4 text-center">
                                         <h6 class="mb-4">$$room_data[price] per night</h6>
-                                        <a href="#" class="btn btn-sm w-100 btn-primary text-white shadow-none mb-2 custom-btn">Book Now</a>
-                                        <a href="room_details.php?id=$room_data[id]" class="btn btn-sm w-100 btn-primary text-white shadow-none">More Details</a>
+                                        $book_btn
+                                        <a href="room_details.php?id=$room_data[id]" class="btn btn-sm w-100 custom-bg custom-btn-outline shadow-none">More Details</a>
                                     </div>
         
                                 </div>
@@ -203,9 +201,6 @@
                         data;
                 }
                 ?>
-
-                <!-- Card1 -->
-                
             </div>
 
         </div>

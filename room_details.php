@@ -154,10 +154,14 @@
                                     $room_data[area] sq. ft.                                    </span>
                                 </div>
                             area;
-
-                        echo <<<book
+                        
+                        if (!$settings_r['shutdown']) {
+                            echo <<<book
                                 <a href="#" class="btn w-100 btn-primary text-white shadow-none mb-1 custom-btn">Book Now</a>
                             book;
+                        }
+
+                        
                         ?>
                     </div>
                 </div>

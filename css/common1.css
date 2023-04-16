@@ -17,12 +17,12 @@ input::-webkit-inner-spin-button{
 } */
 
 .custom-bg{
-    background-color: #7ba9a9;
+    background-color: ghostwhite;
 }
 
-.custom-bg:hover{
+/* .custom-bg:hover{
     background-color: #BCD9D7;
-}
+} */
 .custom-alert{
     position: fixed;
     top: 80px;

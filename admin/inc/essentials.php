@@ -16,7 +16,7 @@
 
     //sendgrid api key
     define('SENDGRID_API_KEY','');
-    define('SENDGRID_EMAIL','tayamirai@gmail.com');
+    define('SENDGRID_EMAIL','dbb.jpeg@gmail.com');
     define('SENDGRID_NAME','THYZEN');
 
 

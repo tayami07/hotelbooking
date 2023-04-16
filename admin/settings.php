@@ -39,7 +39,7 @@ adminLogin();
         </div>
         <div class="container-fluid col-9 mt-3" id="main-content">
             <div class="row">
-                <div class="col-lg-10  p-4overflow-hidden">
+                <div class="col-lg-10  p-4 overflow-hidden">
 
                     <div class="container-fluid" id="main-content">
                         <div class="row">
