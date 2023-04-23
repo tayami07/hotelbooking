@@ -154,14 +154,18 @@
                                     $room_data[area] sq. ft.                                    </span>
                                 </div>
                             area;
-                        
+
                         if (!$settings_r['shutdown']) {
+                            $login = 0;
+                            if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+                                $login = 1;
+                            }
                             echo <<<book
-                                <a href="#" class="btn w-100 btn-primary text-white shadow-none mb-1 custom-btn">Book Now</a>
+                                <button onclick='checkLoginToBook($login,$room_data[id])' class="btn w-100 btn-primary text-white shadow-none mb-1 custom-btn">Book Now</button>
                             book;
                         }
 
-                        
+
                         ?>
                     </div>
                 </div>
