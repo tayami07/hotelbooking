@@ -10,6 +10,7 @@
     <?php require('inc/links.php'); ?>
     <title><?php echo $settings_r['site_title'] ?> - CONFIRM BOOKING</title>
 
+    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
 
 
@@ -101,7 +102,7 @@
             <div class="col-lg-5 col-md-12 px-4">
                 <div class="card mb-4 border-0 shadow-sm rounded-3">
                     <div class="card-body">
-                        <form action="#" id="booking_form">
+                        <form id="booking_form">
                             <h6 class="mb-3">Booking Details</h6>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -137,7 +138,7 @@
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                     <h6 class="mb-3 text-danger" id="pay_info">Please fill in the check-in and check-out date</h6>
-                                    <button name="pay_now" class="btn w-100 text-white custom-btn shadow-none mb-1" disabled>Pay Now</button>
+                                    <button name="pay_now" id="payment-button" class="btn w-100 text-white custom-btn shadow-none mb-1">Pay Now</button>
                                 </div>
                             </div>
                         </form>
@@ -151,6 +152,81 @@
     <!-- Footer -->
     <?php require('inc/footer.php'); ?>
     <script>
+        var config = {
+            // replace the publicKey with yours
+            publicKey: "test_public_key_6ed6739a38784535b64c748a6637783e",
+            productIdentity: "1234567890",
+            productName: "Dragon",
+            productUrl: "http://gameofthrones.wikia.com/wiki/Dragons",
+            paymentPreference: [
+                "KHALTI",
+                "EBANKING",
+                "MOBILE_BANKING",
+                "CONNECT_IPS",
+                "SCT",
+            ],
+            eventHandler: {
+                onSuccess(payload) {
+                    console.log(payload);
+                    GetPayLoad(payload);
+                },
+                onError(error) {
+                    console.log(error);
+                },
+                onClose() {
+                    console.log("widget is closing");
+                },
+            },
+        };
+
+        var checkout = new KhaltiCheckout(config);
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function(e) {
+            e.preventDefault();
+            // minimum transaction amount must be 10, i.e 1000 in paisa.
+            checkout.show({
+                amount: 10000
+            });
+        };
+
+        function GetPayLoad(payload) {
+            console.log(payload);
+            console.log("Payment successful");
+            // alert('Payment Success')
+            var amt = "";
+            var tkn = "";
+            khaltidata = payload;
+            amt = khaltidata.amount;
+            tkn = khaltidata.token;
+            if(payload.status == 200){
+                console.log("hi");
+                // window.location.href = `confirmBooking.php?amount=${amt}&token=${tkn}`;
+                    $.ajax({
+                    type: "POST",
+                    url: "confirmBooking.php", //call storeemdata.php to store form data
+                    data: formdata,
+                    cache: false,
+                    success: function(html) {
+                    alert(html);
+                    }
+                });
+            }
+
+            // if ($success) {
+            //     $response = array('success' => true, 'redirect' => 'success.php');
+            // } else {
+            //     $response = array('success' => false, 'error' => 'Something went wrong!');
+            // }
+
+
+
+        }
+
+
+
+
+
+
         let booking_form = document.getElementById('booking_form');
         let info_loader = document.getElementById('info_loader');
         let pay_info = document.getElementById('pay_info');
@@ -161,16 +237,15 @@
 
             booking_form.elements['pay_now'].setAttribute('disabled', true);
 
-            if (checkin_val!='' && checkout_val!='')
-            {
+            if (checkin_val != '' && checkout_val != '') {
                 pay_info.classList.add('d-none');
-                pay_info.classList.replace('text-dark','text-danger');
+                pay_info.classList.replace('text-dark', 'text-danger');
 
                 info_loader.classList.remove('d-none');
 
                 let data = new FormData();
 
-                data.append('check_availability','');
+                data.append('check_availability', '');
                 data.append('check_in', checkin_val);
                 data.append('check_out', checkout_val);
 
@@ -179,21 +254,17 @@
 
                 xhr.onload = function() {
                     let data = JSON.parse(this.responseText);
-                    if(data.status == 'check_in_out_equal'){
+                    if (data.status == 'check_in_out_equal') {
                         pay_info.innerText = "You cannot check-out on the same day!";
-                    }
-                    else if(data.status == 'check_out_earlier'){
+                    } else if (data.status == 'check_out_earlier') {
                         pay_info.innerText = "The Check-out date is earlier than the check-in date!";
-                    }
-                    else if(data.status == 'check_in_earlier'){
+                    } else if (data.status == 'check_in_earlier') {
                         pay_info.innerText = "The Check-in date is earlier than today's date!";
-                    }
-                    else if(data.status == 'unavailable'){
+                    } else if (data.status == 'unavailable') {
                         pay_info.innerText = "Room not available for this check-in date!";
-                    }
-                    else{
-                        pay_info.innerHTML = "No. of days: "+data.days+"<br>Total amount to pay: $"+data.payment;
-                        pay_info.classList.replace('text-danger','text-dark');
+                    } else {
+                        pay_info.innerHTML = "No. of days: " + data.days + "<br>Total amount to pay: $" + data.payment;
+                        pay_info.classList.replace('text-danger', 'text-dark');
                         booking_form.elements['pay_now'].removeAttribute('disabled');
                     }
 
@@ -204,6 +275,11 @@
             }
         }
     </script>
+
+
+
+
+
 
 </body>
 

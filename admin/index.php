@@ -45,7 +45,7 @@
                 <input required name="admin_pass" type="password" class="form-control" required>
                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
-            <button name="login" type="submit">Login</button>
+            <button class="btn p-2 mb-2 bg-dark text-white" name="login" type="submit">Login</button>
         </form>
     </div>
 

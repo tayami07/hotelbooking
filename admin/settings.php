@@ -92,7 +92,7 @@ adminLogin();
                                 </div>
 
 
-                                <!-- SHutdown section -->
+                                <!-- Shutdown section -->
                                 <div class="card border-0 shdaow-sm mb-4">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between mb-3">

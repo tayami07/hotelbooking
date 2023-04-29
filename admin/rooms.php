@@ -258,6 +258,10 @@ if (isset($_GET['del'])) {
                                 <label class="form-label fw-bold">Children (Max.)</label>
                                 <input type="number" name="children" class="form-control shadow-none" required>
                             </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">new (Max.)</label>
+                                <input type="number" name="children" class="form-control shadow-none" required>
+                            </div> -->
                             <!-- features -->
                             <div class="col-12 mb-3">
                                 <label class="form-label fw-bold">Features</label>

@@ -24,7 +24,7 @@
 
     <!-- Main Heading -->
     <div class="my-5 px-4">
-        <h2 class="fw-bold h-font text-center">Hotels</h2>
+        <h2 class="fw-bold h-font text-center">Our Rooms</h2>
 
         <div class="h-line bg-dark"></div>
     </div>
@@ -46,15 +46,15 @@
                             <div class="border bg-light p-3 rounded mb-3">
                                 <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
                                     <span>Check Availability</span>
-                                    <button id="chk_avail_btn" class="btn btn-sm text-secondary d-none">Reset</button>
+                                    <button id="chk_avail_btn" onclick="chk_avail_clear()" class="btn shadow-none btn-sm text-secondary d-none">Reset</button>
                                 </h5>
                                 
 
                                 <label class="form-label">Check-in</label>
-                                <input type="date" class="form-control shadow-none mb-3" name="checkin">
+                                <input type="date" class="form-control shadow-none mb-3" id="checkin" onchange="chk_avail_filter()">
 
                                 <label class="form-label">Check-out</label>
-                                <input type="date" class="form-control shadow-none" name="checkout">
+                                <input type="date" class="form-control shadow-none" id="checkout" onchange="chk_avail_filter()">
                             </div>
                             <!-- Services checkbox -->
                             <div class="border bg-light p-3 rounded mb-3">
@@ -86,6 +86,7 @@
                                         <label class="form-label">Children</label>
                                         <input type="number" class="form-control shadow-none">
                                     </div>
+                                    
                                 </div>
 
                             </div>
@@ -104,10 +105,17 @@
 
     <script>
         let rooms_data = document.getElementById('rooms-data');
+        let checkin = document.getElementById('checkin');
+        let checkout = document.getElementById('checkout');
+        let chk_avail_btn = document.getElementById('chk_avail_btn');
 
         function fetch_rooms() {
+            let chk_avail = JSON.stringify({
+                checkin: checkin.value,
+                checkout: checkout.value
+            })
             let xhr = new XMLHttpRequest();
-            xhr.open("GET", "ajax/rooms.php?fetch_rooms", true);
+            xhr.open("GET", "ajax/rooms.php?fetch_rooms&chk_avail="+chk_avail,true);
 
             xhr.onprogress = function() {
                 rooms_data.innerHTML=`<div class="spinner-border text-info mb-3 d-block mx-auto" id="loader" role="status">
@@ -120,7 +128,20 @@
             }
             xhr.send();
         }
-        fetch_rooms();
+        function chk_avail_filter(){
+            if(checkin.value!='' && checkout.value!=''){
+                fetch_rooms();
+                chk_avail_btn.classList.remove('d-none'); //show the reset button once both checkin and checkout are filled
+            }
+        }
+
+        // reset button
+        function chk_avail_clear(){
+            checkin.value='';
+            checkout.value='';
+            chk_avail_btn.classList.remove('d-none');
+            fetch_rooms();
+        }
     </script>
 
     <!-- Footer -->

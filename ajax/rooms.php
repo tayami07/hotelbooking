@@ -5,6 +5,8 @@ require('../admin/inc/essentials.php');
 session_start();
 
 if (isset($_GET['fetch_rooms'])) {
+
+    $chk_avail = json_decode($_GET['chk_avail'],true);
     //count no. of rooms and output variable to store room cards
     $count_rooms = 0;
     $output = "";

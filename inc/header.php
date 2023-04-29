@@ -59,8 +59,8 @@
                         $_SESSION[ufName]
                     </button>
                         <ul class="dropdown-menu dropdown-menu-lg-end">
-                            <li><button class="dropdown-item" href="profile.php">Profile</button></li>
-                            <li><button class="dropdown-item" href="bookings.php">Booking</button></li>
+                            <a class="dropdown-item" href="profile.php">Profile</a>
+                            <a class="dropdown-item" href="bookings.php">Booking</a>
                             <a class="dropdown-item" href="logout.php">Log Out</a>
 
                         </ul>
