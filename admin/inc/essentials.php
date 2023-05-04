@@ -16,7 +16,7 @@
 
     //sendgrid api key
     // define('SENDGRID_API_KEY','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');
-    define('SENDGRID_API_KEY','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');
+    define('SENDGRID_API_KEY','');
     define('SENDGRID_EMAIL','dbb.jpeg@gmail.com');
     define('SENDGRID_NAME','THYZEN');
 
