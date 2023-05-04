@@ -108,6 +108,8 @@
         let checkin = document.getElementById('checkin');
         let checkout = document.getElementById('checkout');
         let chk_avail_btn = document.getElementById('chk_avail_btn');
+        
+        // xhr.open("GET", "ajax/rooms.php?fetch_rooms")
 
         function fetch_rooms() {
             let chk_avail = JSON.stringify({
@@ -142,6 +144,8 @@
             chk_avail_btn.classList.remove('d-none');
             fetch_rooms();
         }
+
+        // fetch_rooms()
     </script>
 
     <!-- Footer -->

@@ -1,16 +1,16 @@
 <?php
-    require_once('admin/inc/db_config.php');
-    require_once('admin/inc/essentials.php');
-    // print_r($contact_r);
-    // session_start();
+require_once('admin/inc/db_config.php');
+require_once('admin/inc/essentials.php');
+// print_r($contact_r);
+// session_start();
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <!-- CSS -->
 <!-- <link rel="stylesheet" href="../css/buttons.css"></link> -->
 <!-- <link rel="stylesheet" href="../css/common.css"></link> -->
-<?php 
-    require_once('links.php');
-?> 
+<?php
+require_once('links.php');
+?>
 <!-- Navbar -->
 <nav id="nav-bar" class="navbar navbar-expand-lg bg-body-tertiary bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
     <div class="container-fluid">
@@ -46,10 +46,9 @@
     </div>
 
     <!-- Session array -->
-    
+
     <?php
-    if (isset($_SESSION['login']) && $_SESSION['login'] == true) 
-    {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
         $path = USERS_IMG_PATH;
 
         echo <<<data
@@ -66,8 +65,7 @@
                         </ul>
                 </div>
                 data;
-    }
-    else {
+    } else {
         echo <<<data
                 <div class="d-flex w-25 justify-content-end">
                     <button type="button" class="btn btn-primary custom-btn shadow-none me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -81,7 +79,7 @@
                 data;
     }
     ?>
-    
+
 
 
 </nav>
@@ -137,9 +135,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span class="badge rounded-pill bg-light text-dark mb-3 text-wrap lh-base">
-                        Note: Upon check-in, your information must match what is on your ID(Citzenship, Passport, Driving License, etc.).
-                    </span>
+
                     <div class="container-fluid">
                         <div class="row">
                             <div class="mb-4 col-md-6 ps-0">
@@ -178,6 +174,9 @@
                                 <label class="form-label">Country</label>
                                 <input name="country" type="text" class="form-control shadow-none" required>
                             </div>
+                            <span class="badge rounded-pill bg-light text-dark mb-3 text-wrap lh-base">
+                                Note: Upon check-in, your information must match what is on your ID(Citzenship, Passport, Driving License, etc.).
+                            </span>
                             <div class="mb-4 col-md-6 ps-0">
                                 <label class="form-label">Pincode</label>
                                 <input name="pincode" type="number" class="form-control shadow-none" required>

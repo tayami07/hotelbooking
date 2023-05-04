@@ -1,3 +1,13 @@
+<?php
+    require('config.php');
+
+    echo '<pre>';
+    print_r($_POST);
+?>
+
+
+
+
 <!-- 
 <?php
 
@@ -42,10 +52,10 @@ $query2 = "INSERT INTO `booking_details`(`booking_id`, `room_name`, `price`, `to
 
 insert($query2,[$booking_id,$_SESSION['room']['name'],$_SESSION['room']['price'],$TXN_AMOUNT],$frm_data['fname'],$frm_data['phonenum'],$frm_data['city'],'issssss');
 
-?>
- -->
+?> -->
 
- <?php
+
+ <!-- <?php
 
 // Get the amount and token from the POST data
 $amount = $_POST['amount'];
@@ -74,4 +84,4 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-?>
+?> -->

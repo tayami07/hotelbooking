@@ -19,6 +19,8 @@
                 
             }
             else{
+                //$update = "UPDATE `rooms` SET `status`=? WHERE `name`='$roomname'";
+                
                 $update = update("UPDATE `user_cred` SET `is_verified`=? WHERE `id`=?", [1,$fetch['id']], 'ii');
                 if($update){
                     echo"<script>alert('Email verification success')</script>";
