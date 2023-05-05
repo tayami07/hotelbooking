@@ -76,8 +76,8 @@ session_start();
     $uid = $_SESSION['uId'];
     $roomid = $_SESSION['room']['id'];
 
-    $query0 = "INSERT INTO `booking_order`(`user_id`, `room_id`) VALUES (?,?)";
-    insert($query0,[$uid,$roomid],'is');
+    $query0 = "INSERT INTO `booking_order`(`user_id`, `room_id`,`check_in`,`check_out`) VALUES (?,?,?,?)";
+    insert($query0,[$uid,$roomid,$check_in,$check_out],'isss');
     $update0 = "UPDATE `booking_order` SET `booking_status`='booked' WHERE `user_id`=$uid AND `room_id`=$roomid";
  
 

@@ -53,8 +53,8 @@ require_once('links.php');
 
         echo <<<data
                 <div class="btn-group">
-                    <button type="button" class="btn custom-btn shadow-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                        <img src="$path$_SESSION[uPic]" style="width:25px; height:25px;" class="me-1"/>
+                    <button type="button" class="btn custom-btn-outline shadow-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        <img src="$path$_SESSION[uPic]" style="width:25px; height:25px;" class="me-1 rounded-circle"/>
                         $_SESSION[ufName]
                     </button>
                         <ul class="dropdown-menu dropdown-menu-lg-end">

@@ -10,9 +10,8 @@
     <?php require('inc/links.php'); ?>
     <?php require('config.php'); ?>
 
-    <title><?php echo $settings_r['site_title'] ?> - CONFIRM BOOKING</title>
+    <title><?php echo $settings_r['site_title'] ?> - Confirm</title>
 
-    <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
 
 
