@@ -10,7 +10,7 @@
 
         $frm_data = filteration($_POST);
 
-        $limit = 2;
+        $limit = 6;
         $page = $frm_data['page'];
         $start = ($page-1)*$limit;
 

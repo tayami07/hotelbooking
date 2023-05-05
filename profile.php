@@ -85,43 +85,15 @@
             </div>
 
             <div class="col-md-4 mb-5 px-4">
-                <h2 class="fw-bold">PROFILE</h2>
                 <div class="bg-white p-3 p-md-4 rounded shadow-sm">
                     <form id="info-form">
-                        <h5 class="mb-3 fw-bold">Picture</h5>
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" name="fname" value="<?php echo $u_fetch['fname']?>" class="form-control shadow-none" required>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" name="lname" value="<?php echo $u_fetch['lname']?>" class="form-control shadow-none" required>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="form-label">Phone Number</label>
-                                <input type="number" name="phonenum" value="<?php echo $u_fetch['phonenum']?>" class="form-control shadow-none" required>
-                            </div>
-                            <div class="mb-4 col-md-4">
-                                <label class="form-label">City</label>
-                                <input name="city" type="text" value="<?php echo $u_fetch['city']?>" class="form-control shadow-none" required>
-                            </div>
-                            <div class="mb-4 col-md-4">
-                                <label class="form-label">Country</label>
-                                <input name="country" type="text" value="<?php echo $u_fetch['country']?>" class="form-control shadow-none" required>
-                            </div>
-                            <div class="mb-4 col-md-4">
-                                <label class="form-label">Pincode</label>
-                                <input name="pincode" type="number" value="<?php echo $u_fetch['pincode']?>" class="form-control shadow-none" required>
-                            </div>
-                            <div class="mb-3 col-md-4">
-                                <label class="form-label">Date of Birth(DOB)</label>
-                                <input name="dob" type="date" value="<?php echo $u_fetch['dob']?>" class="form-control shadow-none" required>
-                            </div>
-                            
-                            <button type="submit" class="btn custom-btn text-white shadow-none">Save Changes</button>
+                        <h5 class="mb-3 fw-bold">Profile Picture</h5>
+                        <img src="<?php echo USERS_IMG_PATH.$u_fetch['profile']?>" class="img-fluid mb-3">
 
-                        </div>
+                        <label class="form-label">New Picture</label>
+                        <input name="profile" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none" required>
+                        
+                        <button type="submit" class="btn custom-btn text-white shadow-none">Save Changes</button>
                     </form>
                 </div>
             </div>
