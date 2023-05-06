@@ -46,41 +46,21 @@ if(isset($_POST['check_availability']))
         $tb_query = "SELECT COUNT(*) AS `total_bookings` FROM `booking_order`
         WHERE booking_status=? AND room_id=?
         AND check_out > ? AND check_in < ? ";
-        
+
         $values = ['booked',$_SESSION['room']['id'],$frm_data['check_in'],$frm_data['check_out']];
 
         $tb_fetch = mysqli_fetch_assoc(select($tb_query,$values,'siss'));
 
-        // $rq_result = select("SELECT `quantity` FROM `rooms` WHERE `id`", [$_SESSION['room']['id']],'i');
-        // $rq_fetch = mysqli_fetch_assoc($rq_result);
+        $rq_result = select("SELECT `quantity` FROM `rooms` WHERE `id`=?", [$_SESSION['room']['id']],'i');
+        $rq_fetch = mysqli_fetch_assoc($rq_result);
 
-        // if($rq_fetch['quantity']-$tb_fetch['total_bookings']==0)
-        // {
-        //     $status = 'unavailable';
-        //     $result = json_encode(['status'=>$status]);
-        //     echo $result;
-        //     exit;
-        // }
-        // $tb_query = "SELECT COUNT(*) AS `total_bookings`
-        //      FROM `booking_details` bd
-        //      JOIN `booking_order` bo ON bd.booking_id = bo.booking_id
-        //      WHERE bo.booking_status = 'booked'
-        //      AND bo.room_id = ?
-        //      AND bd.check_out > ?
-        //      AND bd.check_in < ?";
-        // $values = [$_SESSION['room']['id'], $frm_data['check_in'], $frm_data['check_out']];
-        // $tb_fetch = mysqli_fetch_assoc(select($tb_query, $values, 'iss'));
-
-        // $rq_result = select("SELECT `quantity` FROM `rooms` WHERE `id` = ?", [$_SESSION['room']['id']], 'i');
-        // $rq_fetch = mysqli_fetch_assoc($rq_result);
-
-        // if ($rq_fetch['quantity'] - $tb_fetch['total_bookings'] == 0) {
-        //     $status = 'unavailable';
-        //     $result = json_encode(['status' => $status]);
-        //     echo $result;
-        //     exit;
-        // }
-
+        if(($rq_fetch['quantity']-$tb_fetch['total_bookings'])==0)
+        {
+            $status = 'unavailable';
+            $result = json_encode(['status'=>$status]);
+            echo $result;
+            exit;
+        }
         
         // $_SESSION['room'];
 

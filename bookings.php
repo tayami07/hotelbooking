@@ -19,9 +19,9 @@
 
     <!-- Header -->
     <?php require('inc/header.php');
-        if (!(isset($_SESSION['login']) && $_SESSION['login'] == true)) {
-            redirect('index.php');
-        }
+    if (!(isset($_SESSION['login']) && $_SESSION['login'] == true)) {
+        redirect('index.php');
+    }
     ?>
 
     <div class="container">
@@ -65,7 +65,14 @@
                         <button type='button' class='btn btn-sm btn-dark mt-2 shadow-none'>
                             Rate & Review
                         </button>
+                ";
+                if ($data['rate_review'] == 0) {
+                    $btn = "
+                        <button type='button' onclick='review_room($data[booking_id],$data[room_id])' data-bs-toggle='modal' data-bs-target='#reviewModal' class='btn btn-sm btn-dark mt-2 shadow-none'>
+                            Rate & Review
+                        </button>
                     ";
+                }
             } else {
                 $btn = "
                         <button type='button' onclick='cancel_booking($data[booking_id])' class='btn btn-sm btn-danger mt-2 shadow-none'>
@@ -105,36 +112,112 @@
     }
     ?>
 
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <form id="review-form">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 d-flex align-items-center" id="exampleModalLabel">
+                            <i class="bi bi-chat-square-heart-fill fs-3 me-2"></i>Rate & Review
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Rating</label>
+                            <select class="form-select shadow-none" name="rating">
+                                <option value="5">Excellent</option>
+                                <option value="4">Good</option>
+                                <option value="3">Ok</option>
+                                <option value="2">Poor</option>
+                                <option value="1">Not recommended</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Review</label>
+                            <textarea name="review" rows="3" type="text" class="form-control" required></textarea>
+                        </div>
+                        <input type="hidden" name="booking_id">
+                        <input type="hidden" name="room_id">
+                        <div class="text-end">
+                            <button type="submit" class="btn custom-btn text-white shadow-none">Submit</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
     <?php
-        if(isset($_GET['cancel_status'])){
-            alert('success','Booking cancelled!');
-        }
+    if (isset($_GET['cancel_status'])) {
+        alert('success', 'Booking cancelled!');
+    }else if (isset($_GET['review_status'])) {
+        alert('success', 'Thank you for your rating and review of the room!');
+    }
     ?>
+
 
     <!-- Footer -->
     <?php require('inc/footer.php'); ?>
 
     <script>
-        function cancel_booking(id)
-        {
+        function cancel_booking(id) {
             if (confirm('Are you sure you want to cancel this booking?')) {
 
                 let xhr = new XMLHttpRequest();
                 xhr.open("POST", "ajax/cancel_booking.php", true); //asynchronously by "true"
-                xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
                 xhr.onload = function() {
-                    if(this.responseText==1){
-                        window.location.href="bookings.php?cancel_status=true";
-                    }
-                    else{
-                        alert('error','Cancellation failed!');
+                    if (this.responseText == 1) {
+                        window.location.href = "bookings.php?cancel_status=true";
+                    } else {
+                        alert('error', 'Cancellation failed!');
                     }
                 }
-                xhr.send('cancel_booking&id='+id);
+                xhr.send('cancel_booking&id=' + id);
                 // console.log('ccancel');
             }
         }
+
+        let review_form = document.getElementById('review-form');
+
+        function review_room(bid, rid) {
+            review_form.elements['booking_id'].value = bid;
+            review_form.elements['room_id'].value = rid;
+
+        }
+        review_form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let data = new FormData();
+            data.append('review_form', '');
+            data.append('rating', review_form.elements['rating'].value);
+            data.append('review', review_form.elements['review'].value);
+            data.append('booking_id', review_form.elements['booking_id'].value);
+            data.append('room_id', review_form.elements['room_id'].value);
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "ajax/review_room.php", true);
+
+            xhr.onload = function() {
+                if (this.responseText == 1)
+                {
+                    window.location.href = 'bookings.php?review_status=true';
+                }
+                else {
+                    var myModal = document.getElementById('reviewModal');
+                    var modal = bootstrap.Modal.getInstance(myModal);
+                    modal.hide();
+                    
+                    alert('error', "Rating & Review failed!");
+                }
+            }
+            xhr.send(data);
+        })
     </script>
 
 </body>

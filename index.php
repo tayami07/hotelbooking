@@ -159,12 +159,34 @@
                     }
 
                     $book_btn = "";
+
                     if (!$settings_r['shutdown']) {
-                        $login=0;
-                        if(isset($_SESSION['login']) && $_SESSION['login']==true){
+                        $login = 0;
+                        if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
                             $login = 1;
                         }
                         $book_btn = "<button onclick='checkLoginToBook($login,$room_data[id])' class='btn btn-sm custom-btn text-white custom-bg shadow-none'>Book Now</button>";
+                    }
+
+                    $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
+                    WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESc LIMIT 20";
+
+                    $rating_res = mysqli_query($con,$rating_q);
+                    $rating_data = "";
+                    $rating_fetch = mysqli_fetch_assoc($rating_res);
+                    if($rating_fetch['avg_rating']!=NULL)
+                    {
+                        $rating_data = "<div class='rating mb-4'>
+                            <h6 class='mb-1'>Rating</h6>
+                            <span class='badge rounded-pill bg-light'>
+                        ";
+                        for($i=0; $i < $rating_fetch['avg_rating']; $i++)
+                        {
+                            $rating_data .="<i class='bi bi-star-fill text-warning'></i> ";
+                        }
+                        $rating_data .="</span>
+                            </div>
+                        ";
                     }
                     //print room card
                     echo <<<data
@@ -198,16 +220,8 @@
                                     </div>
 
                                     <!-- Rating -->
-                                    <div class="rating mb-4">
-                                        <h6 class="mb-1">Rating</h6>
-                                        <span class="badge rounded-pill bg-white">
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                        </span>
-                                    </div>
-
+                                    $rating_data
+                                    
                                     <!-- side buttons -->
                                     <div class="d-flex justify-content-evenly mb-2">
                                         $book_btn
@@ -251,6 +265,80 @@
                 <a href="facilities.php" class="btn btn-md custom-btn-outline rounded fw-bold shadow-none">More Facilities</a>
             </div>
         </div>
+    </div>
+
+    <!-- testimonials -->
+    <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Testimonials</h2>
+
+    <div class="container mt-5">
+        <!-- Carousel wrapper -->
+        <!-- <div id="carouselExampleControls" class="carousel slide text-center carousel-dark" data-mdb-ride="carousel">
+            <div class="carousel-inner"> -->
+
+                <?php
+                    $review_q = "SELECT rr.*, uc.fname AS uname, uc.profile, r.name AS rname FROM `rating_review` rr
+                    INNER JOIN `user_cred` uc ON rr.user_id = uc.id
+                    INNER JOIN `rooms` r ON rr.room_id = r.id 
+                    ORDER BY `sr_no` DESC LIMIT 6";
+
+                    $review_res = mysqli_query($con, $review_q);
+                    $img_path = USERS_IMG_PATH;
+                    if(mysqli_num_rows($review_res)==0)
+                    {
+                        echo 'No reviews yet!';
+                    }
+                    else{
+                        while($row = mysqli_fetch_assoc($review_res))
+                        {
+                            $stars = "<i class='bi bi-star-fill text-warning'></i> ";
+                            for($i=1; $i<$row['rating']; $i++)
+                            {
+                                $stars .= "<i class='bi bi-star-fill text-warning'></i> ";
+                            }
+                            echo <<<slides
+                                <div id="carouselExample" class="carousel slide">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="$img_path$row[profile]" class="rounded-circle shadow-1-strong mb-4" loading="lazy" style="width: 150px;"/>
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-lg-8">
+                                                        <h5 class="mb-3">$row[uname]</h5>
+                                                        <p class="text-muted">
+                                                            $row[review]
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    $stars
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            slides;
+                        }
+                    }
+                ?>
+                
+            <!-- </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div> -->
+        <!-- Carousel wrapper -->
+
     </div>
 
     <!-- Reach us -->

@@ -83,11 +83,6 @@
                     <td>
                         <span class='badge $status_bg'>$data[booking_status]</span>
                     </td>
-                    <td>
-                    <button type='button' onclick='cancel_booking($data[booking_id])' class='btn mt-2 btn-md fw-bold btn-outline-danger shadow-none'>
-                        <i class='bi bi-trash'></i>
-                    </button>
-                    </td>
                 </tr>
             ";
             // print_r($table_data);

@@ -89,7 +89,7 @@ session_start();
 
     $query = "insert into booking_details (booking_id, room_name, check_in, check_out, price, total_pay, room_no, user_name, phonenum, city) values($booking_id,'$roomname', '$check_in', '$check_out', $price, $amount, $roomno, '$fname', '$phonenum', '$city')";
 
-    $update = "UPDATE `rooms` SET `status`=0 WHERE `name`='$roomname'";
+    // $update = "UPDATE `rooms` SET `status`=0 WHERE `name`='$roomname'";
 
     echo $query;
 
@@ -97,7 +97,7 @@ session_start();
     $result = mysqli_query($con, $update0);
 
     $result = mysqli_query($con, $query);
-    $result = mysqli_query($con, $update);
+    // $result = mysqli_query($con, $update);
 
     if($result){
         print('Inserted');
