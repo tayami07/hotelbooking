@@ -1,7 +1,7 @@
 <?php
 
     //frontend purpose data
-    define('SITE_URL','http://127.0.0.1/hotelbooking/');
+    define('SITE_URL','http://127.0.0.1:8080/hotelbooking/');
     define('ABOUT_IMG_PATH',SITE_URL.'images/about/');
     define('USERS_IMG_PATH',SITE_URL.'images/users/');
     define('FACILITIES_IMG_PATH',SITE_URL.'images/facilities/');
@@ -15,7 +15,6 @@
     define('ROOMS_FOLDER','rooms/');
 
     //sendgrid api key
-    // define('SENDGRID_API_KEY','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');
     define('SENDGRID_API_KEY','');
     define('SENDGRID_EMAIL','dbb.jpeg@gmail.com');
     define('SENDGRID_NAME','THYZEN');

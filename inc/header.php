@@ -14,7 +14,7 @@ require_once('links.php');
 <!-- Navbar -->
 <nav id="nav-bar" class="navbar navbar-expand-lg bg-body-tertiary bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php">Thyzen</a>
+        <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php"><?php echo $settings_r['site_title'] ?></a>
         <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon "></span>
         </button>
@@ -138,63 +138,64 @@ require_once('links.php');
 
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">First Name</label>
                                 <input name="fname" type="text" class="form-control shadow-none" required>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Last Name</label>
                                 <input name="lname" type="text" class="form-control shadow-none" required>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <select class="form-select" name="gender" for="gender" required>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            <div class="mb-3 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Email address</label>
                                 <input name="email" type="email" class="form-control shadow-none" required>
                             </div>
                             <!-- //contacts -->
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Picture</label>
                                 <input name="profile" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none" required>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Phone Number</label>
                                 <input name="phonenum" type="number" class="form-control shadow-none" required>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">City</label>
                                 <input name="city" type="text" class="form-control shadow-none" required>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Country</label>
                                 <input name="country" type="text" class="form-control shadow-none" required>
                             </div>
-                            <span class="badge rounded-pill bg-light text-dark mb-3 text-wrap lh-base">
-                                Note: Upon check-in, your information must match what is on your ID(Citzenship, Passport, Driving License, etc.).
-                            </span>
-                            <div class="mb-4 col-md-6 ps-0">
-                                <label class="form-label">Pincode</label>
+                            
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Identification Information</label>
                                 <input name="pincode" type="number" class="form-control shadow-none" required>
+                                <span class="badge rounded-pill bg-secondary text-white mb-2 mt-1 text-wrap">
+                                    Note: Upon check-in, your information must match what is on your ID(Citzenship, Passport, Driving License, etc.)
+                                </span>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Date of Birth(DOB)</label>
                                 <input name="dob" type="date" class="form-control shadow-none" required>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Password</label>
                                 <input name="password" type="password" class="form-control shadow-none" required>
                             </div>
-                            <div class="mb-4 col-md-6 ps-0">
+                            <div class="mb-3 col-md-6">
                                 <label class="form-label">Confirm Password</label>
                                 <input name="cpassword" type="password" class="form-control shadow-none" required>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary shadow-none">Register</button>
+                                <button type="submit" class="btn custom-btn text-white shadow-none">Register</button>
                             </div>
                         </div>
                     </div>

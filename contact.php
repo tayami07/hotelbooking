@@ -27,14 +27,13 @@
         <h2 class="fw-bold h-font text-center">Contact Us</h2>
         <div class="h-line bg-dark"></div>
         <p class="text-center mt-3">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Esse assumenda consequatur suscipit aut distinctio nihil ea incidunt ullam,
-            recusandae est sed molestiae odit mollitia quo porro rerum provident eligendi labore!
-        </p>
+        We appreciate our clients, therefore we welcome any questions you may have. You can contact us using the information below.
+        <br>You can follow us on our social networking platforms!
+    </p>
     </div>
 
     <!-- Contact Details -->
-    <div class="container border border-black">
+    <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 mb-5 px-4">
                 <div class="bg-white rounded shadow p-4">

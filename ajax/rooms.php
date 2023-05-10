@@ -1,12 +1,49 @@
 <?php
 require('../admin/inc/db_config.php');
 require('../admin/inc/essentials.php');
+date_default_timezone_set("Asia/Kathmandu");
+
 
 session_start();
 
 if (isset($_GET['fetch_rooms'])) {
 
+
     $chk_avail = json_decode($_GET['chk_avail'],true);
+    //checkin and checkout filter validation
+    if($chk_avail['checkin']!='' && $chk_avail['checkout']!='')
+    {
+        //check in and out validations
+        $today_date = new DateTime(date("Y-m-d"));
+        $checkin_date = new DateTime($chk_avail['checkin']);
+        $checkout_date = new DateTime($chk_avail['checkout']);
+
+        if($checkin_date == $checkout_date)
+        {
+            echo "<h3 class='text-center text-danger'>No rooms to show!</h3>";
+            exit;
+        }
+        else if($checkout_date < $checkin_date)
+        {
+            echo "<h3 class='text-center text-danger'>Invalid dates! Please try again!</h3>";
+            exit;
+        }
+        else if($checkin_date < $today_date)
+        {
+            echo "<h3 class='text-center text-danger'>Invalid dates! Check-in date cannot be later than today!</h3>";
+            exit;
+        }
+    }
+
+    //guests data decode
+    $guests = json_decode($_GET['guests'],true);
+    // print_r($_GET['guests']);
+    $adults = ($guests['adults']!='') ? $guests['adults'] : 0;
+    $children = ($guests['children']!='') ? $guests['children'] : 0;
+
+    //facilities data decode
+    $facility_list = json_decode($_GET['facility_list'],true);
+
     //count no. of rooms and output variable to store room cards
     $count_rooms = 0;
     $output = "";
@@ -15,10 +52,51 @@ if (isset($_GET['fetch_rooms'])) {
     $settings_q = "SELECT * FROM `settings` WHERE `sr_no`=1";
     $settings_r = mysqli_fetch_assoc(mysqli_query($con,$settings_q));
 
-    //query for room cards
-    $room_res = select("SELECT * FROM `rooms` WHERE `status`=? AND `removed`=?", [1, 0], 'ii');
+    //query for room cards with guests filter
+    $room_res = select("SELECT * FROM `rooms` WHERE `adult`>=? AND `children`>=? AND `status`=? AND `removed`=?", [$adults, $children,1, 0], 'iiii');
 
-    while ($room_data = mysqli_fetch_assoc($room_res)) {
+    while ($room_data = mysqli_fetch_assoc($room_res)) 
+    {
+        //check availability logic
+        if($chk_avail['checkin']!='' && $chk_avail['checkout']!=''){
+            $tb_query = "SELECT COUNT(*) AS `total_bookings` FROM `booking_order`
+            WHERE booking_status=? AND room_id=?
+            AND check_out > ? AND check_in < ? ";
+
+            $values = ['booked',$room_data['id'],$chk_avail['checkin'],$chk_avail['checkout']];
+
+            $tb_fetch = mysqli_fetch_assoc(select($tb_query,$values,'siss'));
+
+            if(($room_data['quantity']-$tb_fetch['total_bookings'])==0)
+            {
+                continue;
+            }
+        }
+
+        //get facilities of room with filters
+
+        $fac_count = 0;
+
+
+        $fac_q = mysqli_query($con, "SELECT f.name, f.id FROM `facilities` f 
+                INNER JOIN `room_facilities` rfac ON f.id = rfac.facilities_id 
+                WHERE rfac.room_id = '$room_data[id]'");
+
+        $facilities_data = "";
+        while ($fac_row = mysqli_fetch_assoc($fac_q)) 
+        {
+            if(in_array($fac_row['id'],$facility_list['facilities'])){
+                $fac_count++;
+            }
+            $facilities_data .= "<span class='badge rounded-pill bg-light text-dark text-wrap me-1 mb-1'>
+                        $fac_row[name]
+                    </span>";
+        }
+
+        if(count($facility_list['facilities'])!=$fac_count){
+            continue;
+        }
+
         //get features of room
         $fea_q = mysqli_query($con, "SELECT f.name FROM `features`f 
             INNER JOIN `room_features` rfea ON f.id = rfea.features_id 
@@ -30,17 +108,7 @@ if (isset($_GET['fetch_rooms'])) {
                         $fea_row[name]
                     </span>";
         }
-        //get facilities of room
-        $fac_q = mysqli_query($con, "SELECT f.name FROM `facilities` f 
-                INNER JOIN `room_facilities` rfac ON f.id = rfac.facilities_id 
-                WHERE rfac.room_id = '$room_data[id]'");
-
-        $facilities_data = "";
-        while ($fac_row = mysqli_fetch_assoc($fac_q)) {
-            $facilities_data .= "<span class='badge rounded-pill bg-light text-dark text-wrap me-1 mb-1'>
-                        $fac_row[name]
-                    </span>";
-        }
+        
 
         //get thumbnail of image
         $room_thumb = ROOMS_IMG_PATH . "thumbnail.jpg";
@@ -75,7 +143,6 @@ if (isset($_GET['fetch_rooms'])) {
                         <!-- Hotel mini details -->
 
                         <div class='col-md-5 px-lg-3 px-md-3 px-0'>
-        
                             <h5 class='mb-3'>$room_data[name]</h5>
                             <div class='features mb-3'>
                                 <h6 class='mb-1'>Features</h6>
@@ -98,18 +165,6 @@ if (isset($_GET['fetch_rooms'])) {
                                     $room_data[children] Children
                                 </span>
                             </div>
-                                
-        
-                            <!-- Rating -->
-                            <div class='rating mb-4'>
-                                <h6 class='mb-1'>Rating</h6>
-                                <span class='badge rounded-pill bg-white'>
-                                    <i class='bi bi-star-fill text-warning'></i>
-                                    <i class='bi bi-star-fill text-warning'></i>
-                                    <i class='bi bi-star-fill text-warning'></i>
-                                    <i class='bi bi-star-fill text-warning'></i>
-                                </span>
-                            </div>
                         </div>
         
                         <div class='col-2'>
@@ -119,16 +174,11 @@ if (isset($_GET['fetch_rooms'])) {
                                 $book_btn
                                 <a href='room_details.php?id=$room_data[id]' class='btn btn-sm w-100 custom-bg custom-btn-outline shadow-none'>More Details</a>
                             </div>
-        
                         </div>
-        
-        
-        
                     </div>
                 </div>
-            ";
-
-            $count_rooms++;
+        ";
+        $count_rooms++;
     }
 
     if($count_rooms>0)

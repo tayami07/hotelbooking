@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thyzen - Home</title>
+
+     <!-- Links -->
+     <?php require('inc/links.php');?>
+
+    <title><?php echo $settings_r['site_title'] ?> - Home</title>
     <link rel="stylesheet" href="css/buttons.css" />
+  
 
-    <!-- Links -->
-    <?php require('inc/links.php');
-    ?>
-    <?php require('inc/header.php'); ?>
-
+   
 
     <style>
         body {
@@ -39,6 +40,9 @@
     </style>
 
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> -->
+
+     
+    <?php require('inc/header.php'); ?>
 
 </head>
 
@@ -73,38 +77,45 @@
             <div class="row ">
                 <div class="col-lg-12 bg-white shadow p-4 rounded" style="position:absolute;top:1rem">
                     <h5 class="md-4 text-custom">Check Booking Availability</h5>
-                    <form>
+                    <form action="rooms.php">
                         <div class="row align-items-end">
                             <div class="col-lg-3 mb-3">
                                 <label class="form-label" style="font-weight:500;">Check-In</label>
-                                <input type="date" class="form-control shadow-none">
+                                <input type="date" class="form-control shadow-none" name="checkin" required>
                             </div>
                             <div class="col-lg-3 mb-3">
                                 <label class="form-label" style="font-weight:500;">Check-Out</label>
-                                <input type="date" class="form-control shadow-none">
+                                <input type="date" class="form-control shadow-none" name="checkout" required>
                             </div>
                             <div class="col-lg-3 mb-3">
                                 <label class="form-label" style="font-weight:500;">Adult</label>
-                                <select class="form-select shadow-none">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="2">3</option>
-                                    <option value="1">4</option>
-                                    <option value="1">5</option>
-                                    <option value="1">6</option>
+                                <select class="form-select shadow-none" name="adult">
+                                    <?php
+                                    $guests_q = mysqli_query($con, "SELECT MAX(adult) AS `max_adult`, MAX(children) AS `max_children`
+                                        FROM `rooms` WHERE `status`='1' AND `removed`='0'");
+
+                                    $guests_res = mysqli_fetch_assoc($guests_q);
+                                    for ($i = 0; $i <= $guests_res['max_adult']; $i++) {
+                                        echo "<option value='$i'>$i</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-lg-3 mb-3">
                                 <label class="form-label" style="font-weight:500;">Children</label>
-                                <select class="form-select shadow-none">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                    <option value="1">3</option>
-                                    <option value="1">4</option>
-                                    <option value="1">5</option>
-                                    <option value="1">6</option>
+                                <select class="form-select shadow-none" name="children">
+                                    <?php
+                                    $guests_q = mysqli_query($con, "SELECT MAX(adult) AS `max_adult`, MAX(children) AS `max_children`
+                                        FROM `rooms` WHERE `status`='1' AND `removed`='0'");
+
+                                    $guests_res = mysqli_fetch_assoc($guests_q);
+                                    for ($i = 0; $i <= $guests_res['max_children']; $i++) {
+                                        echo "<option value='$i'>$i</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
+                            <input type="hidden" name="check_availability">
                             <div class="w-100 d-flex justify-content-center col-lg-1 mb-lg-3 mt-2">
                                 <button type="submit" class="btn text-white shadow-none btn custom-btn  p-2 btn-sm-custom">Check</button>
                             </div>
@@ -171,20 +182,18 @@
                     $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
                     WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESc LIMIT 20";
 
-                    $rating_res = mysqli_query($con,$rating_q);
+                    $rating_res = mysqli_query($con, $rating_q);
                     $rating_data = "";
                     $rating_fetch = mysqli_fetch_assoc($rating_res);
-                    if($rating_fetch['avg_rating']!=NULL)
-                    {
+                    if ($rating_fetch['avg_rating'] != NULL) {
                         $rating_data = "<div class='rating mb-4'>
                             <h6 class='mb-1'>Rating</h6>
                             <span class='badge rounded-pill bg-light'>
                         ";
-                        for($i=0; $i < $rating_fetch['avg_rating']; $i++)
-                        {
-                            $rating_data .="<i class='bi bi-star-fill text-warning'></i> ";
+                        for ($i = 0; $i < $rating_fetch['avg_rating']; $i++) {
+                            $rating_data .= "<i class='bi bi-star-fill text-warning'></i> ";
                         }
-                        $rating_data .="</span>
+                        $rating_data .= "</span>
                             </div>
                         ";
                     }
@@ -269,77 +278,62 @@
 
     <!-- testimonials -->
     <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Testimonials</h2>
-
     <div class="container mt-5">
-        <!-- Carousel wrapper -->
-        <!-- <div id="carouselExampleControls" class="carousel slide text-center carousel-dark" data-mdb-ride="carousel">
-            <div class="carousel-inner"> -->
+
+        <div id="carouselExampleControls" class="carousel slide text-center carousel-dark" >
+            <div class="carousel-inner">
 
                 <?php
-                    $review_q = "SELECT rr.*, uc.fname AS uname, uc.profile, r.name AS rname FROM `rating_review` rr
-                    INNER JOIN `user_cred` uc ON rr.user_id = uc.id
-                    INNER JOIN `rooms` r ON rr.room_id = r.id 
-                    ORDER BY `sr_no` DESC LIMIT 6";
+                $review_q = "SELECT rr.*, uc.fname AS uname, uc.profile, r.name AS rname FROM `rating_review` rr
+            INNER JOIN `user_cred` uc ON rr.user_id = uc.id
+            INNER JOIN `rooms` r ON rr.room_id = r.id 
+            ORDER BY `sr_no` DESC LIMIT 6";
 
-                    $review_res = mysqli_query($con, $review_q);
-                    $img_path = USERS_IMG_PATH;
-                    if(mysqli_num_rows($review_res)==0)
-                    {
-                        echo 'No reviews yet!';
-                    }
-                    else{
-                        while($row = mysqli_fetch_assoc($review_res))
-                        {
-                            $stars = "<i class='bi bi-star-fill text-warning'></i> ";
-                            for($i=1; $i<$row['rating']; $i++)
-                            {
-                                $stars .= "<i class='bi bi-star-fill text-warning'></i> ";
-                            }
-                            echo <<<slides
-                                <div id="carouselExample" class="carousel slide">
-                                    <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <img src="$img_path$row[profile]" class="rounded-circle shadow-1-strong mb-4" loading="lazy" style="width: 150px;"/>
-                                                <div class="row d-flex justify-content-center">
-                                                    <div class="col-lg-8">
-                                                        <h5 class="mb-3">$row[uname]</h5>
-                                                        <p class="text-muted">
-                                                            $row[review]
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="rating">
-                                                    $stars
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
-                            slides;
+                $review_res = mysqli_query($con, $review_q);
+                $img_path = USERS_IMG_PATH;
+                if (mysqli_num_rows($review_res) == 0) {
+                    echo 'No reviews yet!';
+                } else {
+                    $active = "active";
+                    while ($row = mysqli_fetch_assoc($review_res)) {
+                        $stars = "<i class='bi bi-star-fill text-warning'></i> ";
+                        for ($i = 1; $i < $row['rating']; $i++) {
+                            $stars .= "<i class='bi bi-star-fill text-warning'></i> ";
                         }
+                        echo <<<slides
+                    <div class="carousel-item $active">
+                        <img class="rounded-circle shadow-1-strong mb-4"
+                        src="$img_path$row[profile]" alt="avatar"
+                        style="width: 150px;" />
+                        <div class="row d-flex justify-content-center">
+                        <div class="col-lg-8">
+                            <h5 class="mb-3">$row[uname]</h5>
+                            <p class="text-muted">$stars</p>
+                            <p class="text-muted">
+                            <i class="fas fa-quote-left pe-2"></i>
+                            $row[review]
+                            </p>
+                        </div>
+                    </div>
+                    </div>
+                slides;
+                        $active = "";
                     }
+                }
                 ?>
-                
-            <!-- </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
-        </div> -->
-        <!-- Carousel wrapper -->
-
+        </div>
     </div>
+
 
     <!-- Reach us -->
 

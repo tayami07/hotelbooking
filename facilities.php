@@ -49,7 +49,7 @@
     <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">Our facilities</h2>
         <div class="h-line bg-dark"></div>
-        <p class="text-center mt-3">Lorem ipsum dolor sit.</p>
+        <p class="text-center mt-3">Since we cherish our customers' comfort, we have offered a range of amenities to ensure it!</p>
     </div>
     <div class="container">
         <div class="row">

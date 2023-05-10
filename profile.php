@@ -20,17 +20,38 @@
 <body>
     <?php
     require('inc/header.php');
+    require ('./ajax/jwt.php');
+
+    const KEY = 'thisissecretkey';
+
 
     if (!(isset($_SESSION['login']) && $_SESSION['login'] == true)) {
-        redirect('index.php');
+
+    
+            redirect('index.php');
+
     }
 
-    $u_exist = select("SELECT * FROM `user_cred` WHERE `id`=? LIMIT 1", [$_SESSION['uId']], 's');
+        // Generate token
+        $token = JWT::Sign(['id' => 'demoid'], KEY);
 
-    if (mysqli_num_rows($u_exist) == 0) {
-        redirect('index.php');
-    }
-    $u_fetch = mysqli_fetch_assoc($u_exist);
+
+        // Vefity token
+        $payload = JWT::Sign($token, KEY);
+
+        $query = "UPDATE user_cred set token='.$payload.' WHERE id=". $_SESSION['uId'];
+        
+        $_SESSION['jwt'] = $payload;
+
+        if(insertToken($query)){
+
+            $u_exist = select("SELECT * FROM `user_cred` WHERE `id`=? LIMIT 1", [$_SESSION['uId']], 's');
+
+            if (mysqli_num_rows($u_exist) == 0) {
+                redirect('index.php');
+            }
+            $u_fetch = mysqli_fetch_assoc($u_exist);
+        }
 
     ?>
 
@@ -117,13 +138,14 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn custom-btn text-white shadow-none">Save Changes</button>
+                        <button type="submit" id="change-password" class="btn custom-btn text-white shadow-none">Save Changes</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
+    <input type="hidden" name="jwt" value="<?php echo $u_fetch['fname'] ?>">
 
     <?php require('inc/footer.php'); ?>
     <script>
@@ -141,6 +163,7 @@
             data.append('country', info_form.elements['country'].value);
             data.append('pincode', info_form.elements['pincode'].value);
             data.append('dob', info_form.elements['dob'].value);
+            data.append('jwt', info_form.elements['dob'].value);
 
 
             let xhr = new XMLHttpRequest();
@@ -213,10 +236,13 @@
                     alert('error', "Failed to update the password!");
                 } else {
                     alert('success', "Changes saved!");
-                    pass_form.reset();
+                    pass_form.reset();  
+                                      
+
                 }
             }
             xhr.send(data);
+           
             console.log('pass_updated');
         })
     </script>

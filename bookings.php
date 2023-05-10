@@ -37,10 +37,11 @@
             </div>
         </div>
     </div>
+    <div class='row'>
 
-    <?php
+        <?php
 
-    $query = "SELECT bo.*, bd.* 
+        $query = "SELECT bo.*, bd.* 
             FROM `booking_order` bo
             INNER JOIN `booking_details` bd ON bo.booking_id = bd.booking_id
             WHERE ((bo.booking_status ='booked')
@@ -48,46 +49,46 @@
             AND (bo.user_id=?)
             ORDER BY bo.booking_id DESC";
 
-    $result = select($query, [$_SESSION['uId']], 'i');
-    while ($data = mysqli_fetch_assoc($result)) {
-        $date = date("d-m-Y", strtotime($data['datentime']));
-        $checkin = date("d-m-Y", strtotime($data['check_in']));
-        $checkout = date("d-m-Y", strtotime($data['check_out']));
+        $result = select($query, [$_SESSION['uId']], 'i');
+        while ($data = mysqli_fetch_assoc($result)) {
+            $date = date("d-m-Y", strtotime($data['datentime']));
+            $checkin = date("d-m-Y", strtotime($data['check_in']));
+            $checkout = date("d-m-Y", strtotime($data['check_out']));
 
-        $status_bg = "";
-        $btn = "";
+            $status_bg = "";
+            $btn = "";
 
-        if ($data['booking_status'] == 'booked') {
-            $status_bg = "bg-success";
+            if ($data['booking_status'] == 'booked') {
+                $status_bg = "bg-success";
 
-            if ($data['arrival'] == 1) {
-                $btn = "
+                if ($data['arrival'] == 1) {
+                    $btn = "
                         <button type='button' class='btn btn-sm btn-dark mt-2 shadow-none'>
                             Rate & Review
                         </button>
                 ";
-                if ($data['rate_review'] == 0) {
-                    $btn = "
+                    if ($data['rate_review'] == 0) {
+                        $btn = "
                         <button type='button' onclick='review_room($data[booking_id],$data[room_id])' data-bs-toggle='modal' data-bs-target='#reviewModal' class='btn btn-sm btn-dark mt-2 shadow-none'>
                             Rate & Review
                         </button>
                     ";
-                }
-            } else {
-                $btn = "
+                    }
+                } else {
+                    $btn = "
                         <button type='button' onclick='cancel_booking($data[booking_id])' class='btn btn-sm btn-danger mt-2 shadow-none'>
                             Cancel
                         </button>
                     ";
+                }
+            } else {
+                $status_bg = "bg-danger";
+                if ($data['refund'] == 0) {
+                    $btn = "<span class='badge bg-primary'>Refund in process..</span>";
+                }
             }
-        } else {
-            $status_bg = "bg-danger";
-            if ($data['refund'] == 0) {
-                $btn = "<span class='badge bg-primary'>Refund in process..</span>";
-            }
-        }
 
-        echo <<<bookings
+            echo <<<bookings
                 <div class='col-md-4 px-4 mb-4'>
                     <div class='bg-white p-3 rounded shadow-sm'>
                         <h5 class='fw-bold'>$data[room_name]</h5>
@@ -108,9 +109,12 @@
                         </p>
                     </div>
                 </div>
+            
+
             bookings;
-    }
-    ?>
+        }
+        ?>
+    </div>
 
     <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -154,7 +158,7 @@
     <?php
     if (isset($_GET['cancel_status'])) {
         alert('success', 'Booking cancelled!');
-    }else if (isset($_GET['review_status'])) {
+    } else if (isset($_GET['review_status'])) {
         alert('success', 'Thank you for your rating and review of the room!');
     }
     ?>
@@ -204,15 +208,13 @@
             xhr.open("POST", "ajax/review_room.php", true);
 
             xhr.onload = function() {
-                if (this.responseText == 1)
-                {
+                if (this.responseText == 1) {
                     window.location.href = 'bookings.php?review_status=true';
-                }
-                else {
+                } else {
                     var myModal = document.getElementById('reviewModal');
                     var modal = bootstrap.Modal.getInstance(myModal);
                     modal.hide();
-                    
+
                     alert('error', "Rating & Review failed!");
                 }
             }

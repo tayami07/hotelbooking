@@ -38,6 +38,8 @@ if(isset($_POST['check_availability']))
         echo $result;
     }
     else{
+
+        
         session_start();
 
         //total bookings=tb

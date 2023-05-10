@@ -84,12 +84,12 @@ if (isset($_GET['del'])) {
             <?php require('inc/adminheader.php') ?>
         </div>
         <div class="container-fluid col-9 mt-3" id="main-content">
-            <div class="row">
-                <div class="col-lg-10 p-4overflow-hidden">
+            <div class="row" style="width:140%">
+                <div class="col-lg-10 p-4 overflow-hidden">
 
                     <div class="container-fluid" id="main-content">
                         <div class="row">
-                            <div class="col-lg-10 ms-auto -4 overflow-hidden">
+                            <div class="col-lg-10  overflow-hidden">
                                 <h3 class="mb-4">ROOMS</h3>
 
                                 <div class="card border-0 shadow-sm mb-4">
@@ -162,11 +162,11 @@ if (isset($_GET['del'])) {
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Adult (Max.)</label>
-                                <input type="number" name="adult" class="form-control shadow-none" required>
+                                <input type="number" name="adult" min="0" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Children (Max.)</label>
-                                <input type="number" name="children" class="form-control shadow-none" required>
+                                <input type="number" name="children" min="0" class="form-control shadow-none" required>
                             </div>
                             <!-- features -->
                             <div class="col-12 mb-3">
@@ -252,11 +252,11 @@ if (isset($_GET['del'])) {
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Adult (Max.)</label>
-                                <input type="number" name="adult" class="form-control shadow-none" required>
+                                <input type="number" name="adult" min="0" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Children (Max.)</label>
-                                <input type="number" name="children" class="form-control shadow-none" required>
+                                <input type="number" name="children" min="0" class="form-control shadow-none" required>
                             </div>
                             <!-- <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">new (Max.)</label>

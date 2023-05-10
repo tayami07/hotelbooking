@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <?php require_once('inc/links.php')?>
+    <title><?php echo $settings_r['site_title'] ?></title>
 </head>
 
 <body>
@@ -20,17 +21,15 @@
     <!-- Footer -->
     <div class="container-fluid bg-white mt-5 d-flex">
         <div class="col-lg-4">
-            <h3 class="h-font fw-bold fs-3 mb-2">Thyzen</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Dolor repudiandae voluptatibus facilis sunt quo vel alias saepe?
-                Id debitis nulla ipsum alias magnam, exercitationem est voluptatum, accusamus dignissimos quos quod!</p>
+            <h3 class="h-font fw-bold fs-3 mb-2"><?php echo $settings_r['site_title'] ?></h3>
+            <p class="lh-base"><?php echo $settings_r['site_about'] ?></p>
         </div>
         <div class="col-lg-4 p-4">
             <h5 class="mb-3">Links</h5>
             <a href="index.php" class="d-inline-block mb-2 text-dark text-decoration-none">Home</a><br>
             <a href="rooms.php" class="d-inline-block mb-2 text-dark text-decoration-none">Rooms</a><br>
             <a href="facilities.php" class="d-inline-block mb-2 text-dark text-decoration-none">Facilities</a><br>
-            <a href="facilities.php" class="d-inline-block mb-2 text-dark text-decoration-none">Contact Us</a><br>
+            <a href="contact.php" class="d-inline-block mb-2 text-dark text-decoration-none">Contact Us</a><br>
             <a href="about.php" class="d-inline-block mb-2 text-dark text-decoration-none">About Us</a><br>
             <a href="faq.php" class="d-inline-block mb-2 text-dark text-decoration-none">FAQs</a><br>
 

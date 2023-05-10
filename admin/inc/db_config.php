@@ -109,4 +109,13 @@
             die("query cannot be prepared - insert");
         }
     }
-?>
+
+    function insertToken($sql){
+        $con = $GLOBALS['con'];
+            
+        if ($con->query($sql) === TRUE) {
+           return true;
+        } 
+           return false;
+
+    }

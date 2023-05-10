@@ -21,24 +21,28 @@
         <h2 class="fw-bold h-font text-center">About Us</h2>
         <div class="h-line bg-dark"></div>
         <p class="text-center mt-3">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Esse assumenda consequatur suscipit aut distinctio nihil ea incidunt ullam,
-            recusandae est sed molestiae odit mollitia quo porro rerum provident eligendi labore!
+            <?php echo $settings_r['site_about'] ?>
         </p>
     </div>
 
     <div class="container">
         <div class="row justify-content-between align-items-center">
             <div class="col-lg-6 md-5 mb-4 order-lg-1 order-md-1 order-2">
-                <h3 class="mb-3">Lorem ipsum dolor sit.</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsum harum quidem porro, non accusamus modi suscipit!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsum harum quidem porro, non accusamus modi suscipit!
+                <h3 class="mb-3">Thyzen - Your Zen</h3>
+                <p>Sometime in the early 80s, the search for a quiet life away from the city brought us to Nagarkot. 
+                    What started out as an organic apple orchard somehow turned into our mountain retreat on the persuasion of friends; 
+                    especially since the view from here was not too bad. Over the last 30 years, we have been nurturing our garden and forest area 
+                    spread across six acres. We feel very lucky to share our space with many species of trees, birds and animals, to the delight 
+                    of many of our nature-loving guests. We are continually trying to make our presence here more sustainable, environmentally and 
+                    socially. We find delight in the quiet and reassuring company of the mountains during the day, and the stars at night. 
+                    
+                    This is a place for rest.
+                    
+                    Welcome to our garden!
                 </p>
             </div>
             <div class="col-lg-5 col-md-5 mb-4 order-lg-2 order-md-2 order-1">
-                <img src="images/about/IMG_29068.jpg" class="w-100">
+                <img src="images/fort1.jpg" class="w-100">
             </div>
         </div>
     </div>

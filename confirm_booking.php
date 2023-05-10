@@ -24,6 +24,9 @@
     <?php require('inc/header.php'); ?>
 
     <?php
+
+    const KEY = 'thisissecretkey';
+
     //check id from url is present or not
     //check if shutdown mode is active or not
     //user is logged in or not
@@ -33,6 +36,30 @@
     } else if (!(isset($_SESSION['login']) && $_SESSION['login'] == true)) {
         redirect('rooms.php');
     }
+
+
+    // Generate token
+    $token = JWT::Sign(['id' => 'demoid'], KEY);
+
+
+    // Vefity token
+    $payload = JWT::Sign($token, KEY);
+
+    $query = "UPDATE user_cred set token='.$payload.' WHERE id=". $_SESSION['uId'];
+    
+    $_SESSION['jwt'] = $payload;
+
+    if(insertToken($query)){
+
+        $u_exist = select("SELECT * FROM `user_cred` WHERE `id`=? LIMIT 1", [$_SESSION['uId']], 's');
+
+        if (mysqli_num_rows($u_exist) == 0) {
+            redirect('index.php');
+        }
+        $u_fetch = mysqli_fetch_assoc($u_exist);
+    }
+
+
 
     //filter and get room and user data
 
@@ -141,13 +168,7 @@
                                     <h6 class="mb-3 text-danger" id="pay_info">Please fill in the check-in and check-out date</h6>
                                     <!-- <button name="pay_now" id="payment-button" class="btn w-100 text-white custom-btn shadow-none mb-1">Pay Now</button> -->
 
-                                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" name="pay_now" id="pay_now" 
-                                    data-key="<?php echo $publishableKey ?>" 
-                                    data-amount="<?php echo $payment ?>" 
-                                    data-name="<?php echo $room_data['name'] ?>" 
-                                    data-id="<?php echo $room_data['id'] ?>" 
-                                    data-description="<?php echo $room_data['name'] ?>" 
-                                    data-currency="usd" data-locale="auto">
+                                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" name="pay_now" id="pay_now" data-key="<?php echo $publishableKey ?>" data-amount="<?php echo $payment ?>" data-name="<?php echo $room_data['name'] ?>" data-id="<?php echo $room_data['id'] ?>" data-description="<?php echo $room_data['name'] ?>" data-currency="usd" data-locale="auto">
                                     </script>
 
                                 </div>
@@ -283,6 +304,7 @@
                 xhr.open("POST", "ajax/confirm_booking.php", true);
 
                 xhr.onload = function() {
+
                     let data = JSON.parse(this.responseText);
                     if (data.status == 'check_in_out_equal') {
                         pay_info.innerText = "You cannot check-out on the same day!";
