@@ -29,15 +29,15 @@
         <div class="row justify-content-between align-items-center">
             <div class="col-lg-6 md-5 mb-4 order-lg-1 order-md-1 order-2">
                 <h3 class="mb-3">Thyzen - Your Zen</h3>
-                <p>Sometime in the early 80s, the search for a quiet life away from the city brought us to Nagarkot. 
-                    What started out as an organic apple orchard somehow turned into our mountain retreat on the persuasion of friends; 
-                    especially since the view from here was not too bad. Over the last 30 years, we have been nurturing our garden and forest area 
-                    spread across six acres. We feel very lucky to share our space with many species of trees, birds and animals, to the delight 
-                    of many of our nature-loving guests. We are continually trying to make our presence here more sustainable, environmentally and 
-                    socially. We find delight in the quiet and reassuring company of the mountains during the day, and the stars at night. 
-                    
+                <p>Sometime in the early 80s, the search for a quiet life away from the city brought us to Nagarkot.
+                    What started out as an organic apple orchard somehow turned into our mountain retreat on the persuasion of friends;
+                    especially since the view from here was not too bad. Over the last 30 years, we have been nurturing our garden and forest area
+                    spread across six acres. We feel very lucky to share our space with many species of trees, birds and animals, to the delight
+                    of many of our nature-loving guests. We are continually trying to make our presence here more sustainable, environmentally and
+                    socially. We find delight in the quiet and reassuring company of the mountains during the day, and the stars at night.
+
                     This is a place for rest.
-                    
+
                     Welcome to our garden!
                 </p>
             </div>
@@ -86,23 +86,23 @@
                 while ($row = mysqli_fetch_assoc($about_r)) {
                     echo <<<data
                         <div class="carousel-item active">
-                            <img src="$path$row[picture]" class="d-block w-100" alt="...">
-                            <h5 class="mt-2">$row[name]</h5>
+                            <img src="$path$row[picture]" class="d-block w-100">
+                            <div>
+                                <h5 class="mt-2">$row[name]</h5>
+                            </div>
                         </div>
-                        data;
+                    data;
                 }
-
                 ?>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-          
         </div>
     </div>
 

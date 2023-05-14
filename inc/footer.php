@@ -5,20 +5,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php require_once('inc/links.php')?>
+    <?php require_once('inc/links.php');
+    require_once('./admin/inc/essentials.php');
+    // require('./ajax/jwt.php');
+    ?>
     <title><?php echo $settings_r['site_title'] ?></title>
 </head>
 
 <body>
+
+
+
+
     <!-- <?php
 
-    // require_once('admin/inc/db_config.php');
+            // require_once('admin/inc/db_config.php');
 
-    $contactQ = "SELECT * FROM `contact_details` WHERE `sr_no` = ?";
-    $values = [1];
-    $contact_r = mysqli_fetch_assoc(select($contactQ, $values, 'i'));
-    ?> -->
+            $contactQ = "SELECT * FROM `contact_details` WHERE `sr_no` = ?";
+            $values = [1];
+            $contact_r = mysqli_fetch_assoc(select($contactQ, $values, 'i'));
+            ?> -->
     <!-- Footer -->
+
+    <?php
+
+    // require('./ajax/profile.php');
+
+
+
+    // const KEY = 'thisissecretkey';
+
+    // Generate token
+    // $token = JWT::Sign(['id' => 'demoid'], KEY);
+
+
+    // Vefity token
+    // $payload = JWT::Sign($token, KEY);
+
+    // $query = "UPDATE user_cred set token='.$payload.' WHERE id=" . $_SESSION['uId'];
+    // echo $query;
+
+
+    // if (insertToken($query)) {
+    //     $_SESSION['jwt'] = $payload;
+    // } else {
+    //     redirect('about.php');
+    // }
+    ?>
+
     <div class="container-fluid bg-white mt-5 d-flex">
         <div class="col-lg-4">
             <h3 class="h-font fw-bold fs-3 mb-2"><?php echo $settings_r['site_title'] ?></h3>
@@ -71,13 +105,14 @@
         let a_tags = navbar.getElementsByTagName('a');
 
         for (i = 0; i < a_tags.length; i++) {
-            let file = a_tags[i].href.split('/').pop();     //file location
+            let file = a_tags[i].href.split('/').pop(); //file location
             let file_name = file.split('.')[0];
 
             if (document.location.href.indexOf(file_name) >= 0) {
                 a_tags[i].classList.add('active');
             }
         }
+
 
     }
 
@@ -124,6 +159,7 @@
         data.append('city', register_form.elements['city'].value);
         data.append('country', register_form.elements['country'].value);
         data.append('pincode', register_form.elements['pincode'].value);
+        data.append('pincodeimg', register_form.elements['pincodeimg'].files[0]);
         data.append('dob', register_form.elements['dob'].value);
         data.append('password', register_form.elements['password'].value);
         data.append('cpassword', register_form.elements['cpassword'].value);
@@ -141,28 +177,25 @@
         xhr.onload = function() {
             if (this.responseText == 'pass_mismatch') {
                 alert('error', "Password Mismatched");
-            } 
-            else if (this.responseText == 'email_already') {
+            } else if (this.responseText == 'email_already') {
                 alert('error', "Email is already registered");
-            }
-            else if (this.responseText == 'phone_already') {
+                console.log('im here');
+            } else if (this.responseText == 'phone_already') {
                 alert('error', "Phone number is already registered");
-            }
-            else if (this.responseText == 'inv_img') {
+            } else if (this.responseText == 'inv_img') {
                 alert('error', "Only JPG, PNG, and WEBP images are allowed.");
-            }
-            else if (this.responseText == 'upd_failed') {
+            } else if (this.responseText == 'upd_failed') {
                 alert('error', "Failed to upload image.");
-            }
-            else if (this.responseText == 'mail_failed') {
+            } else if (this.responseText == 'mail_failed') {
                 alert('error', "Cannot send confirmation email. Server down");
-            }
-            else if (this.responseText == 'ins_failed') {
+            } else if (this.responseText == 'ins_failed') {
                 alert('error', "Registration failed");
-            }
-            else {
+            } else {
                 alert('success', "Registration successful. Confirmation link sent to mail.");
                 register_form.reset();
+                // $('#registerModal').parent().removeClass('modal-backdrop'); // remove the backdrop class
+                // register_form.reset();
+                // $('#registerModal').modal('hide');
             }
         }
 
@@ -196,6 +229,7 @@
         xhr.open("POST", "ajax/login_register.php", true);
 
         xhr.onload = function() {
+            console.log(this.responseText)
             if (this.responseText == 'inv_email_mob') {
                 alert('error', "Invalid Email or Mobile Number");
             } else if (this.responseText == 'not_verified') {
@@ -206,13 +240,12 @@
                 alert('error', "Incorrect Password.");
             } else {
                 let fileurl = window.location.href.split('/').pop().split('?').shift();
-                if(fileurl == 'room_details.php'){
+                if (fileurl == 'room_details.php') {
                     window.location = window.location.href;
-                }
-                else{
+                } else {
                     window.location = window.location.pathname;
                 }
-        }
+            }
 
         }
         xhr.send(data);
@@ -258,20 +291,24 @@
 
     });
 
+    //refresh function
+    function refreshPage() {
+        location.reload();
+    }
+
+
     //check login
-    function checkLoginToBook(status,room_id)
-    {
-        if(status){
-            window.location.href='confirm_booking.php?id='+room_id;
-        }
-        else{
+    function checkLoginToBook(status, room_id) {
+        if (status) {
+            window.location.href = 'confirm_booking.php?id=' + room_id;
+        } else {
             alert('error', 'Please login to book room!');
         }
     }
     setActive();
 </script>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

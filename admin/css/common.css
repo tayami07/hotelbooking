@@ -17,12 +17,12 @@
 
 .custom-alert{
     position: fixed;
-    top: 80px;
-    right: 25px;
+    top: 50px;
+    right: 20px;
+    z-index: 1111;
 }
 
 #dashboard-menu{
-    position: fixed;
     height: 100%;
     z-index: 111;
 }

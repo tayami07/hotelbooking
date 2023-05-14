@@ -95,6 +95,7 @@
 
         $res = update($query,$values,'iisi'); //it will update 2 rows hence it will return 2
         echo($res=2)?1:0;
+        // echo($res);
     }
 
     if(isset($_POST['cancel_booking']))

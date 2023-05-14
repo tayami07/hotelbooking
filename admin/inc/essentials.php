@@ -1,7 +1,7 @@
 <?php
 
     //frontend purpose data
-    define('SITE_URL','http://127.0.0.1:8080/hotelbooking/');
+    define('SITE_URL','http://127.0.0.1/hotelbooking/');
     define('ABOUT_IMG_PATH',SITE_URL.'images/about/');
     define('USERS_IMG_PATH',SITE_URL.'images/users/');
     define('FACILITIES_IMG_PATH',SITE_URL.'images/facilities/');
@@ -16,7 +16,7 @@
 
     //sendgrid api key
     define('SENDGRID_API_KEY','');
-    define('SENDGRID_EMAIL','dbb.jpeg@gmail.com');
+    define('SENDGRID_EMAIL','');
     define('SENDGRID_NAME','THYZEN');
 
 
@@ -49,7 +49,6 @@
                 <strong class="me-3">$msg</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-
         alert;
     }
 
@@ -121,6 +120,46 @@
         }
     }
 
+    function uploadUserIdentification($image2)
+    {
+        $valid_mime2 = ['image/jpeg','image/png','image/webp'];
+        $img_mime2 = $image2['type'];
+
+        if(!in_array($img_mime2,$valid_mime2)){
+            return 'inv_img';
+        }
+        else if(($image2['size']/(1024*1024))>2){
+            return 'inv_size';
+        }
+        else{
+            $ext2 = pathinfo($image2['name'],PATHINFO_DIRNAME);
+            $rname2 = 'IMG_'.random_int(11111,99999).".jpeg";
+
+            $img_path2 = UPLOAD_IMAGE_PATH.USERS_FOLDER.$rname2;
+
+            if($ext2=='png' || $ext2 == 'PNG'){
+                $img2 = imagecreatefrompng($image2['tmp_name']);
+            }
+            else if($ext2=='webp' || $ext2 == 'WEBP')
+            {
+                $img2 = imagecreatefromwebp($image2['tmp_name']);
+            }
+            else{
+                $img2 = imagecreatefromjpeg($image2['tmp_name']);
+
+            }
+
+            if(imagejpeg($img2,$img_path2,75))
+            {
+                return $rname2;
+            }
+            else{
+                return 'upd_failed';
+            }
+            
+        }
+    }
+
     function uploadSVGImage($image,$folder)
     {
         $valid_mime = ['image/svg+xml'];
@@ -157,5 +196,3 @@
             return false;
         }
     }
-
-?>

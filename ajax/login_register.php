@@ -4,6 +4,9 @@ require('../admin/inc/essentials.php');
 require('../admin/inc/db_config.php');
 require('../inc/sendgrid/sendgrid-php.php');
 date_default_timezone_set("Asia/Kathmandu");
+require('jwt.php');
+
+const KEY = 'thisissecretkey';
 
 
 function send_mail($uemail, $token, $type)
@@ -59,13 +62,10 @@ if (isset($_POST['register'])) {
 
 
     //check user exist or not
-    $u_exist = select(
-        "SELECT * FROM `user_cred` WHERE `email` = ? AND `phonenum` = ? LIMIT 1",
-        [$data['email'], $data['phonenum']],
-        "ss"
-    );
+    $u_exist = select("SELECT * FROM `user_cred` WHERE `email` = ? OR `phonenum` = ? LIMIT 1",
+    [$data['email'], $data['phonenum']],"ss");
 
-    if (mysqli_num_rows($u_exist) != 0) {
+    if (mysqli_num_rows($u_exist)!=0) {
         $u_exist_fetch = mysqli_fetch_assoc($u_exist);
         echo ($u_exist_fetch['email'] == $data['email']) ? 'email_already' : 'phone_already';
         exit;
@@ -74,12 +74,22 @@ if (isset($_POST['register'])) {
     //upload user image to server
     $img = uploadUserImage($_FILES['profile']);
 
-    if($img == 'inv_img'){
+    if ($img == 'inv_img') {
         echo 'inv_img';
         exit;
+    } else if ($img == 'upd_failed') {
+        echo ('upd_failed');
+        exit;
     }
-    else if($img == 'upd_failed'){
-        echo('upd_failed');
+
+    //upload user identification image to server
+    $img2 = uploadUserIdentification($_FILES['pincodeimg']);
+
+    if ($img2 == 'inv_img') {
+        echo 'inv_img';
+        exit;
+    } else if ($img2 == 'upd_failed') {
+        echo ('upd_failed');
         exit;
     }
 
@@ -94,13 +104,15 @@ if (isset($_POST['register'])) {
     $enc_pass = password_hash($data['password'], PASSWORD_BCRYPT);        //password encryption
 
     $query = "INSERT INTO `user_cred` (`fname`, `lname`, `gender`, `email`, `profile`, `phonenum`, 
-    `city`, `country`, `pincode`, `dob`, `password`, `token`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    `city`, `country`, `pincode`, `pincodeimg`, `dob`, `password`, `token`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
-    $values = [$data['fname'], $data['lname'], $data['gender'], $data['email'], $img, $data['phonenum'], 
-        $data['city'],$data['country'],$data['pincode'], $data['dob'],$enc_pass, $token];
+    $values = [
+        $data['fname'], $data['lname'], $data['gender'], $data['email'], $img, $data['phonenum'],
+        $data['city'], $data['country'], $data['pincode'],$img2, $data['dob'], $enc_pass, $token
+    ];
 
-    if (insert($query, $values, 'ssssssssssss')) {
+    if (insert($query, $values, 'sssssssssssss')) {
         echo 1;
     } else {
         echo 'ins_failed';
@@ -111,39 +123,64 @@ if (isset($_POST['register'])) {
 
 //login user
 if (isset($_POST['login'])) {
-    $data = filteration($_POST);                        
-    $u_exist = select(
-        "SELECT * FROM `user_cred` WHERE `email`=? OR `phonenum`=? LIMIT 1",
-        [$data['email_mob'], $data['email_mob']],
-        "ss"
-    );
-    if (mysqli_num_rows($u_exist) == 0) {
-        echo 'inv_email_mob';
-    } else {
-        $u_fetch = mysqli_fetch_assoc($u_exist);
-        if ($u_fetch['is_verified'] == 0) {
-            echo 'not_verified';
-        } else if ($u_fetch['status'] == 0) {
-            echo 'inactive';
+        
+        //login 
+        $data = filteration($_POST);
+        $u_exist = select(
+            "SELECT * FROM `user_cred` WHERE `email`=? OR `phonenum`=? LIMIT 1",
+            [$data['email_mob'], $data['email_mob']],
+            "ss"
+        );
+        if (mysqli_num_rows($u_exist) == 0) {
+            echo 'inv_email_mob';
         } else {
-            if (!password_verify($data['password'], $u_fetch['password'])) {
-                echo 'invalid_pass';
-            }
-            else {
-                session_start();
-                $_SESSION['login'] = true;
-                $_SESSION['uId'] = $u_fetch['id'];
-                $_SESSION['ufName'] = $u_fetch['fname'];
-                $_SESSION['uPic'] = $u_fetch['profile'];
-                $_SESSION['uPhone'] = $u_fetch['phonenum'];
-                echo 1;
+            $u_fetch = mysqli_fetch_assoc($u_exist);
+            if ($u_fetch['is_verified'] == 0) {
+                echo 'not_verified';
+            } else if ($u_fetch['status'] == 0) {
+                echo 'inactive';
+            } else {
+                if (!password_verify($data['password'], $u_fetch['password'])) {
+                    echo 'invalid_pass';
+                } else {
+                    session_start();
+                    
+                    $payload = [
+                        'iss' => 'localhost/hotelbooking',
+                        'sub' => $_REQUEST['email_mob'],
+                    ];
+
+                    // Generate token
+                    $token = JWT::Sign($payload, KEY);
+            
+                    $query = "UPDATE user_cred SET jwttoken='$token' WHERE email='" . $_REQUEST['email_mob'] . "'"; 
+
+                    if(insertToken($query)){
+                        
+                        $cookie_name = 'JWT_TOKEN';
+                        $cookie_value = $token;
+                        setcookie($cookie_name, $cookie_value, time() + (86400 * 30));
+
+                        $_SESSION['login'] = true;
+                        $_SESSION['uId'] = $u_fetch['id'];
+                        $_SESSION['ufName'] = $u_fetch['fname'];
+                        $_SESSION['uPic'] = $u_fetch['profile'];
+                        $_SESSION['uPhone'] = $u_fetch['phonenum'];
+                        $_SESSION['uIdentity'] = $u_fetch['pincodeimg'];
+                        echo 1;
+                    }else{
+                        session_destroy();
+                        echo 'Something Went Wrong';
+                    }
+                    
+                    
+                }
             }
         }
-    }
 
-    echo($u_exist_fetch['email'] == $data['email']) ? 'email_already' : 'phone_already';
-    exit;
-}
+        // echo ($u_exist_fetch['email'] == $data['email']) ? 'email_already' : 'phone_already';
+        exit;
+ }
 
 
 // forgot pass
@@ -181,22 +218,19 @@ if (isset($_POST['forgot_pass'])) {
 }
 
 
-if (isset($_POST['recover_user']))
-{
+if (isset($_POST['recover_user'])) {
     $data = filteration($_POST);
 
-    $enc_pass = password_hash($data['password'],PASSWORD_BCRYPT);
+    $enc_pass = password_hash($data['password'], PASSWORD_BCRYPT);
 
     $query = "UPDATE `user_cred` SET `password`=?, `token`=?, `t_expire`=?
      WHERE `email`=? AND `token`=?";
 
-    $values = [$enc_pass,null,null,$data['email'],$data['token']];
+    $values = [$enc_pass, null, null, $data['email'], $data['token']];
 
-    if(update($query,$values,'sssss'))
-    {
+    if (update($query, $values, 'sssss')) {
         echo 1;
-    }
-    else{
+    } else {
         echo 'failed';
     }
 }

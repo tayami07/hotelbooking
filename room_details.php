@@ -172,7 +172,7 @@
                                 $login = 1;
                             }
                             echo <<<book
-                                <button onclick='checkLoginToBook($login,$room_data[id])' class="btn w-100 btn-primary text-white shadow-none mb-1 custom-btn">Book Now</button>
+                                <button onclick='checkLoginToBook($login,$room_data[id])' class="btn w-100 text-white shadow-none mb-1 custom-btn">Book Now</button>
                             book;
                         }
 

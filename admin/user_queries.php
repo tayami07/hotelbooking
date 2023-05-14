@@ -8,11 +8,12 @@ if (isset($_GET['seen'])) {
 
     if ($frm_data['seen'] == 'all') {
         $q = "UPDATE `user_queries` SET `seen`=?";
+        echo ($q);
         $values = [1];
         if (update($q, $values, 'i')) {
             alert('success', 'Marked all as read');
         } else {
-            alert('error', 'Operation failed');
+            alert('error', 'Operation failed!');
         }
     } else {
         $q = "UPDATE `user_queries` SET `seen`=? WHERE `sr_no`=?";
@@ -127,16 +128,16 @@ if (isset($_GET['del'])) {
                                                         $seen .= "<a href='?del=$row[sr_no]' class='btn btn-sm rounded-pill btn-danger mt-2'>Delete</a>";
 
                                                         echo <<<query
-                                    <tr>
-                                        <td>$i</td>
-                                        <td>$row[name]</td>
-                                        <td>$row[email]</td>
-                                        <td>$row[subject]</td>
-                                        <td>$row[message]</td>
-                                        <td>$date</td>
-                                        <td>$seen</td>
-                                    </tr>
-                                    query;
+                                                            <tr>
+                                                                <td>$i</td>
+                                                                <td>$row[name]</td>
+                                                                <td>$row[email]</td>
+                                                                <td>$row[subject]</td>
+                                                                <td>$row[message]</td>
+                                                                <td>$date</td>
+                                                                <td>$seen</td>
+                                                            </tr>
+                                                            query;
                                                         $i++;
                                                     }
                                                     ?>

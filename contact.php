@@ -127,7 +127,9 @@
             $frm_data = filteration($_POST);
 
             $q = "INSERT INTO `user_queries`(`name`, `email`, `subject`, `message`) VALUES (?,?,?,?)";
+            // echo($q);
             $values = [$frm_data['name'],$frm_data['email'],$frm_data['subject'],$frm_data['message']];
+            // print_r($values);
 
             $res = insert($q, $values, 'ssss');
             if($res==1){

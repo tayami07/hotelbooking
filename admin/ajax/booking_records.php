@@ -83,6 +83,11 @@
                     <td>
                         <span class='badge $status_bg'>$data[booking_status]</span>
                     </td>
+                    <td>
+                        <button type='button' onclick='download($data[booking_id])' class='mt-2 btn btn-success btn-sm fw-bold shadow-none')>
+                            <i class='bi bi-filetype-pdf'></i>
+                        </button>
+                    </td>
                 </tr>
             ";
             // print_r($table_data);

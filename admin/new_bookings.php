@@ -76,9 +76,6 @@ if (isset($_GET['del'])) {
                     <h3 class="mb-0 h-font">THYZEN - ADMIN</h3>
                     <a href="logout.php" class="btn btn-light btn-sm">Log Out</a>
                 </div>
-
-
-
             </div>
 
         </div>

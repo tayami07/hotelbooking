@@ -50,6 +50,9 @@
                     <td>$row[city]</td>
                     <td>$row[country]</td>
                     <td>$row[pincode]</td>
+                    <td>
+                        <img src='$path$row[pincodeimg]' width='55px'>
+                    </td>
                     <td>$row[dob]</td>
 
                     <td>$verified</td>

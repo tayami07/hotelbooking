@@ -29,11 +29,6 @@ input::-webkit-inner-spin-button{
     right: 25px;
     z-index: 1111;
 }
-.custom-alert{
-    position: fixed;
-    top: 80px;
-    right: 25px;
-}
 
 .custom-btn{
     background-color:#5EB0D3 !important;

@@ -89,7 +89,7 @@ if (isset($_GET['del'])) {
 
                     <div class="container-fluid" id="main-content">
                         <div class="row">
-                            <div class="col-lg-10  overflow-hidden">
+                            <div class="col-lg-10 overflow-hidden">
                                 <h3 class="mb-4">ROOMS</h3>
 
                                 <div class="card border-0 shadow-sm mb-4">
@@ -162,7 +162,7 @@ if (isset($_GET['del'])) {
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Adult (Max.)</label>
-                                <input type="number" name="adult" min="0" class="form-control shadow-none" required>
+                                <input type="number" name="adult" min="1" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Children (Max.)</label>
@@ -252,7 +252,7 @@ if (isset($_GET['del'])) {
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Adult (Max.)</label>
-                                <input type="number" name="adult" min="0" class="form-control shadow-none" required>
+                                <input type="number" name="adult" min="1" class="form-control shadow-none" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Children (Max.)</label>

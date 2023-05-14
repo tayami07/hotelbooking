@@ -91,7 +91,7 @@ if (isset($_GET['del'])) {
 
                     <div class="container-fluid" id="main-content">
                         <div class="row">
-                            <div class="ms-auto -4 overflow-hidden">
+                            <div class="ms-auto overflow-hidden">
                                 <h3 class="mb-4">Refund Bookings</h3>
 
                                 <div class="card border-0 shadow-sm mb-4">

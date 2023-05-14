@@ -119,3 +119,13 @@
            return false;
 
     }
+    // function insertToken($query) {
+    //     $con = $GLOBALS['con'];
+    
+    //     if(mysqli_query($con, $query)) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    

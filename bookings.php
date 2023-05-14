@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/common.css" />
+    <!-- <link rel="stylesheet" href="css/common.css" /> -->
     <!-- Links -->
     <?php require('inc/links.php'); ?>
     <?php require('config.php'); ?>
@@ -20,6 +20,21 @@
     <!-- Header -->
     <?php require('inc/header.php');
     if (!(isset($_SESSION['login']) && $_SESSION['login'] == true)) {
+        redirect('index.php');
+    }
+
+
+    $token =  $_COOKIE['JWT_TOKEN'];
+
+    // Vefity token
+    $payload = JWT::Verify($token, KEY);
+
+    if ($payload == false) {
+
+        unset($_COOKIE['JWT_TOKEN']);  //coocies clear
+        session_destroy();
+        session_start();
+        $_SESSION['invalid_token'] = "The Token Is Invalid. Please Login Again";
         redirect('index.php');
     }
     ?>
@@ -63,12 +78,12 @@
 
                 if ($data['arrival'] == 1) {
                     $btn = "
-                        <button type='button' class='btn btn-sm btn-dark mt-2 shadow-none'>
-                            Rate & Review
-                        </button>
-                ";
+                        <a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm mt-2 shadow-none'>
+                            Download Booking Receipt
+                        </a>
+                        ";
                     if ($data['rate_review'] == 0) {
-                        $btn = "
+                        $btn .= "
                         <button type='button' onclick='review_room($data[booking_id],$data[room_id])' data-bs-toggle='modal' data-bs-target='#reviewModal' class='btn btn-sm btn-dark mt-2 shadow-none'>
                             Rate & Review
                         </button>
@@ -81,10 +96,12 @@
                         </button>
                     ";
                 }
-            } else {
+            } else if ($data['booking_status'] == 'cancelled') {
                 $status_bg = "bg-danger";
                 if ($data['refund'] == 0) {
                     $btn = "<span class='badge bg-primary'>Refund in process..</span>";
+                } else {
+                    $btn  = "<a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm shadow-none'></a>";
                 }
             }
 
@@ -105,12 +122,10 @@
                         <p>
                             <span class='badge $status_bg'>$data[booking_status]</span>
                             <br>
-                            $btn
                         </p>
+                        $btn
                     </div>
                 </div>
-            
-
             bookings;
         }
         ?>

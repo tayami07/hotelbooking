@@ -10,6 +10,42 @@ require_once('admin/inc/essentials.php');
 <!-- <link rel="stylesheet" href="../css/common.css"></link> -->
 <?php
 require_once('links.php');
+require('./ajax/jwt.php');
+?>
+
+<?php
+ const KEY = 'thisissecretkey';
+// if (!(isset($_SESSION['login']) && $_SESSION['login'] == true)) {
+
+//     var_dump($_SESSION);
+//     die;
+
+//     // Generate token
+//     $token = JWT::Sign(['id' => 'demoid'], KEY);
+
+
+//     // Vefity token
+//     $payload = JWT::Sign($token, KEY);
+
+//     //var_dump($payload);
+
+//     $query = "UPDATE user_cred set jwttoken='.$payload.' WHERE id=" . $_SESSION['uId'];
+
+//     $_SESSION['jwt'] = $payload;
+
+//     if (insertToken($query)) {
+
+//         $u_exist = select("SELECT * FROM `user_cred` WHERE `id`=? LIMIT 1", [$_SESSION['uId']], 's');
+
+//         if (mysqli_num_rows($u_exist) == 0) {
+//             redirect('index.php');
+//         }
+//         $u_fetch = mysqli_fetch_assoc($u_exist);
+//     }
+// } else {
+//     //redirect('index.php');
+//     echo '123';
+// }
 ?>
 <!-- Navbar -->
 <nav id="nav-bar" class="navbar navbar-expand-lg bg-body-tertiary bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
@@ -53,7 +89,7 @@ require_once('links.php');
 
         echo <<<data
                 <div class="btn-group">
-                    <button type="button" class="btn custom-btn-outline shadow-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    <button type="button" class="btn custom-btn text-white shadow-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                         <img src="$path$_SESSION[uPic]" style="width:25px; height:25px;" class="me-1 rounded-circle"/>
                         $_SESSION[ufName]
                     </button>
@@ -68,11 +104,11 @@ require_once('links.php');
     } else {
         echo <<<data
                 <div class="d-flex w-25 justify-content-end">
-                    <button type="button" class="btn btn-primary custom-btn shadow-none me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <button type="button" class="btn custom-btn text-white shadow-none me-lg-2 me-3" data-bs-toggle="modal" data-bs-target="#loginModal">
                         Log In
                     </button>
             
-                    <button type="button" class="btn btn-primary custom-btn shadow-none" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    <button type="button" class="btn custom-btn text-white shadow-none" data-bs-toggle="modal" data-bs-target="#registerModal">
                         Register
                     </button>
                 </div>
@@ -106,7 +142,7 @@ require_once('links.php');
                         <input name="password" type="password" class="form-control" required>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <button type="submit" class="btn btn-primary shadow-none" data-bs-dismiss="modal">LOG IN</button>
+                        <button type="submit" class="btn custom-btn text-white shadow-none" data-bs-dismiss="modal">Log In</button>
                         <button type="button" class="btn text-secondary text-decoration-none shadow-none p-0" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#forgotModal">
                             Forgot Password
                         </button>
@@ -159,12 +195,12 @@ require_once('links.php');
                             </div>
                             <!-- //contacts -->
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Picture</label>
+                                <label class="form-label">Profile Picture</label>
                                 <input name="profile" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Phone Number</label>
-                                <input name="phonenum" type="number" class="form-control shadow-none" required>
+                                <input name="phonenum" type="tel" min="0" pattern="[0-9]{10}" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">City</label>
@@ -174,21 +210,25 @@ require_once('links.php');
                                 <label class="form-label">Country</label>
                                 <input name="country" type="text" class="form-control shadow-none" required>
                             </div>
-                            
-                            <div class="mb-3 col-md-6">
+
+                            <div class="mb-3 col-md-12">
                                 <label class="form-label">Identification Information</label>
                                 <input name="pincode" type="number" class="form-control shadow-none" required>
                                 <span class="badge rounded-pill bg-secondary text-white mb-2 mt-1 text-wrap">
                                     Note: Upon check-in, your information must match what is on your ID(Citzenship, Passport, Driving License, etc.)
                                 </span>
                             </div>
+                            <div class="mb-3 col-md-12">
+                                <label class="form-label">Identification Image</label>
+                                <input name="pincodeimg" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none" required>
+                            </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Date of Birth(DOB)</label>
                                 <input name="dob" type="date" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Password</label>
-                                <input name="password" type="password" class="form-control shadow-none" required>
+                                <label class="form-label">Password (minimum 6 characters)</label>
+                                <input name="password" type="password" min="0" pattern="[a-zA-Z0-9]{6,}" class="form-control shadow-none" required>
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label">Confirm Password</label>

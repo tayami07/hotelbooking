@@ -29,11 +29,11 @@
             SUM(CASE WHEN booking_status!='pending' THEN `total_pay` END) AS `total_amt`,
             
 
-            COUNT(CASE WHEN booking_status='booked' AND arrival=1 THEN 1 END) `active_bookings`,
-            SUM(CASE WHEN booking_status='booked' AND arrival=1 THEN `total_pay` END) AS `active_amt`,
+            COUNT(CASE WHEN booking_status='booked' AND bo.arrival=1 THEN 1 END) `active_bookings`,
+            SUM(CASE WHEN booking_status='booked' AND bo.arrival=1 THEN `total_pay` END) AS `active_amt`,
 
-            COUNT(CASE WHEN booking_status='cancelled' AND refund=1 THEN 1 END) AS `cancelled_bookings`,
-            SUM(CASE WHEN booking_status='cancelled' AND refund=1 THEN `total_pay` END) AS `cancelled_amt`
+            COUNT(CASE WHEN booking_status='cancelled' AND bo.refund=1 THEN 1 END) AS `cancelled_bookings`,
+            SUM(CASE WHEN booking_status='cancelled' AND bo.refund=1 THEN `total_pay` END) AS `cancelled_amt`
 
             FROM `booking_order` bo
             INNER JOIN `booking_details` bd ON bo.booking_id = bd.booking_id $condition"));

@@ -19,7 +19,7 @@
         else{
             document.getElementById(position).appendChild(element);
         }
-        setTimeout(remAlert, 2000);
+        setTimeout(remAlert, 3000);
     }
 
     function remAlert()

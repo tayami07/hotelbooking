@@ -19,8 +19,7 @@ class JWT{
         $headers_encoded = base64_encode(json_encode($headers));
 
         // Payload
-        $payload = 'someextravalue';
-        $payload_encoded = base64_encode(json_encode($payload));
+       $payload_encoded = base64_encode(json_encode($payload));
 
         // Signature
         $signature = hash_hmac('SHA256',$headers_encoded.$payload_encoded,$key);

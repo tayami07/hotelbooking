@@ -112,7 +112,8 @@ if (isset($_GET['del'])) {
                                                         <th scope="col">Phone no.</th>
                                                         <th scope="col">City</th>
                                                         <th scope="col">Country</th>
-                                                        <th scope="col">Pincode</th>
+                                                        <th scope="col">Identification Number</th>
+                                                        <th scope="col">Identificaiton Picture</th>
                                                         <th scope="col">DOB</th>
 
                                                         <th scope="col">Verified</th>

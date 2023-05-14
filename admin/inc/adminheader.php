@@ -1,7 +1,7 @@
 <!-- Side Nav Bar -->
-<div class="bg-dark border-top border-3 border-secondary h-100 " id="dashboard-menu">
+<div class="bg-dark border-top border-3 border-secondary col-3 h-100" id="dashboard-menu" style="width:auto;">
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid flex-lg-column align-items-stretch">
+        <div class="container-fluid flex-lg-column align-items-stretch" style="margin-top:30px;">
             <h4 class="mt-2 text-white">ADMIN PANEL</h4>
             <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

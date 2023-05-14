@@ -6,14 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <!-- Links -->
-     <?php require('inc/links.php');?>
+    <!-- Links -->
+    <?php
+    require('inc/links.php');
+    if (isset($_SESSION['invalid_token'])) {
+        $message = $_SESSION['invalid_token'];
+        session_destroy();
+    }
+    ?>
 
     <title><?php echo $settings_r['site_title'] ?> - Home</title>
     <link rel="stylesheet" href="css/buttons.css" />
-  
 
-   
+
+
 
     <style>
         body {
@@ -41,7 +47,7 @@
 
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" /> -->
 
-     
+
     <?php require('inc/header.php'); ?>
 
 </head>
@@ -280,7 +286,7 @@
     <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Testimonials</h2>
     <div class="container mt-5">
 
-        <div id="carouselExampleControls" class="carousel slide text-center carousel-dark" >
+        <div id="carouselExampleControls" class="carousel slide text-center carousel-dark">
             <div class="carousel-inner">
 
                 <?php
@@ -308,6 +314,7 @@
                         <div class="row d-flex justify-content-center">
                         <div class="col-lg-8">
                             <h5 class="mb-3">$row[uname]</h5>
+                            <p>$row[rname]</p>
                             <p class="text-muted">$stars</p>
                             <p class="text-muted">
                             <i class="fas fa-quote-left pe-2"></i>
@@ -426,6 +433,12 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="invalid-token" value="<?php if (isset($messsage)) {
+                                                        echo $message;
+                                                    } else {
+                                                        echo 'null';
+                                                    } ?>">
+
 
     <?php require('inc/footer.php'); ?>
 
@@ -458,6 +471,14 @@
     ?>
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (document.getElementById('invalid-token').value != 'null') {
+                alert('error', document.getElementById('invalid-token').value);
+                window.location.href = 'index.php';
+            }
+        });
+
+
         //recover account
         let recovery_form = document.getElementById('recovery-form');
 
